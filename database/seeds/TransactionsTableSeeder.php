@@ -15,6 +15,7 @@ class TransactionsTableSeeder extends Seeder
     {
         factory(Transaction::class, 200)->create();
 
+        // Delete admins' transactions
         $admins = DB::table('users')->where('status', 'admin')->get('id')->toArray();
         $admin_ids = Arr::pluck($admins, 'id');
 
@@ -22,8 +23,10 @@ class TransactionsTableSeeder extends Seeder
             ->whereIn('fk_user', $admin_ids)
             ->delete();
 
+        // Set amount depending on quantity and purchase price defined previously by the factory
         DB::update("UPDATE `transactions` SET `amount`=`quantity`*`purchase_price`");
 
+        // Set selling amount and date to null if not sold
         DB::table('transactions')
             ->where('sold', false)
             ->update([

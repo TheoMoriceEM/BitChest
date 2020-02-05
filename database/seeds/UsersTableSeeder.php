@@ -13,6 +13,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         factory(User::class, 10)->create();
-        DB::table('users')->where('status', 'admin')->update(['balance' => 0]);
+        DB::table('users')->where('status', 'admin')->update(['balance' => 0]); // Admins shouldn't have a balance
     }
 }

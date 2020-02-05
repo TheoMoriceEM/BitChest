@@ -23,7 +23,7 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-        'status' => $faker->randomDigit <= 2 ? 'admin' : 'client',
+        'status' => $faker->randomDigit <= 2 ? 'admin' : 'client', // 70% clients, 30% admins
         'balance' => $faker->randomFloat(2, 0, 10000),
         'email_verified_at' => now(),
         'remember_token' => Str::random(10)
