@@ -19,8 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->foreign('fk_currency')->references('id')->on('currencies');
             $table->unsignedBigInteger('fk_user');
             $table->foreign('fk_user')->references('id')->on('users');
-            $table->unsignedDecimal('amount');
-            $table->unsignedInteger('quantity');
+            $table->unsignedDecimal('amount')->default(0);
+            $table->unsignedDecimal('quantity');
             $table->unsignedDecimal('purchase_price');
             $table->timestamp('purchase_date');
             $table->boolean('sold');
