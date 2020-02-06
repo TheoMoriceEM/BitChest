@@ -1,9 +1,3 @@
-/**
- * Variables
- */
-/**
- * Sidebar
- */
 #sidebar {
   width: 20%;
   height: 100vh;
@@ -44,5 +38,9 @@
 #sidebar #balance {
   font-weight: 700;
 }
+
+/**
+ * Responsive
+ */
 
 /*# sourceMappingURL=style.css.map */
