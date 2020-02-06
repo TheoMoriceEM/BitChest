@@ -8,7 +8,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name') }}</title>
+        <title>{{ config('app.name') }} - @yield('title')</title>
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,6 +21,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        @yield('CSS')
     </head>
 
     <body class="overflow-hidden">
@@ -74,7 +75,14 @@
             </div>
         </nav>
 
+        <main>
+            <div class="container">
+                @yield('content')
+            </div>
+        </main>
+
         {{-- Scripts --}}
         <script src="{{ asset('js/script.js') }}"></script>
+        @yield('JS')
     </body>
 </html>
