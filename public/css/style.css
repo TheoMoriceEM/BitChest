@@ -1,3 +1,48 @@
-
+/**
+ * Variables
+ */
+/**
+ * Sidebar
+ */
+#sidebar {
+  width: 20%;
+  height: 100vh;
+  background-color: #4949ff;
+  font-size: 1rem;
+  -webkit-box-shadow: 5px 0px 8px 0px #949494;
+  -moz-box-shadow: 5px 0px 8px 0px #949494;
+  box-shadow: 5px 0px 8px 0px #949494;
+}
+#sidebar * {
+  color: white;
+}
+#sidebar a:hover {
+  text-decoration: none;
+}
+#sidebar #logotype {
+  font-size: 2rem;
+  font-weight: 600;
+}
+#sidebar ul {
+  list-style: none;
+}
+#sidebar .sidebar-item {
+  border-radius: 0.5rem;
+  transition: 0.2s;
+}
+#sidebar .sidebar-item.active {
+  background-color: #8a8afd;
+  padding-left: 0.5rem;
+}
+#sidebar .sidebar-item:not(.active):hover {
+  background-color: #7070f9;
+  padding-left: 0.5rem;
+}
+#sidebar .sidebar-item span {
+  font-weight: 600;
+}
+#sidebar #balance {
+  font-weight: 700;
+}
 
 /*# sourceMappingURL=style.css.map */
