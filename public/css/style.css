@@ -1,17 +1,29 @@
 #sidebar {
-  width: 20%;
+  width: 20rem;
   height: 100vh;
   background-color: #4949ff;
   font-size: 1rem;
   -webkit-box-shadow: 5px 0px 8px 0px #949494;
   -moz-box-shadow: 5px 0px 8px 0px #949494;
   box-shadow: 5px 0px 8px 0px #949494;
+  left: 0;
+  transition: 0.3s cubic-bezier(0.4, 0, 1, 1);
 }
 #sidebar * {
   color: white;
 }
 #sidebar a:hover {
   text-decoration: none;
+}
+#sidebar #toggleNav {
+  display: none;
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  right: -3rem;
+  background-color: #4949ff;
+  border-radius: 0 0.5rem 0.5rem 0;
+  cursor: pointer;
 }
 #sidebar #logotype {
   font-size: 2rem;
@@ -38,9 +50,45 @@
 #sidebar #balance {
   font-weight: 700;
 }
+#sidebar #closeNav {
+  display: none;
+  cursor: pointer;
+}
+#sidebar #closeNav:hover {
+  padding-right: 0.5rem;
+}
 
 /**
  * Responsive
  */
+@media (max-width: 1199px) {
+  #sidebar {
+    width: 15rem;
+  }
+}
+@media (max-width: 991px) {
+  #sidebar {
+    width: 12rem;
+    font-size: 0.9rem;
+  }
+  #sidebar i:not(#logoIcon) {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  #sidebar {
+    width: 100%;
+    font-size: 1rem;
+  }
+  #sidebar.hidden {
+    left: -98%;
+  }
+  #sidebar #toggleNav {
+    display: flex;
+  }
+  #sidebar i:not(#logoIcon), #sidebar #closeNav {
+    display: flex;
+  }
+}
 
 /*# sourceMappingURL=style.css.map */
