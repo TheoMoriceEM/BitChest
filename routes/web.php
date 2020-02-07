@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.layout');
+Route::get('/', 'CurrencyController@index')->name('home');
+
+Route::middleware('auth')->prefix('currencies')->name('currencies.')->group(function () {
+    Route::get('/', 'CurrencyController@index')->name('index');
+    Route::get('/{id}', 'CurrencyController@show')->name('show');
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
