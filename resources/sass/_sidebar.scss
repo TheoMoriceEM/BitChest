@@ -1,7 +1,8 @@
 #sidebar {
     width: 20rem;
     height: 100vh;
-    background-color: $main-blue;
+    background: $main-color;
+    background: linear-gradient(135deg, $main-color 0%, $secondary-color 100%);
     font-size: 1rem;
     -webkit-box-shadow: 5px 0px 8px 0px rgba(148,148,148,1);
     -moz-box-shadow: 5px 0px 8px 0px rgba(148,148,148,1);
@@ -25,7 +26,7 @@
         width: 3rem;
         height: 3rem;
         right: -3rem;
-        background-color: $main-blue;
+        background-color: #6827ff;
         border-radius: 0 .5rem .5rem 0;
         cursor: pointer;
     }
