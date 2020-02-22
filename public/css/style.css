@@ -1,3 +1,7 @@
+#mainContainer {
+  overflow-x: hidden;
+}
+
 #sidebar {
   width: 20rem;
   height: 100vh;
