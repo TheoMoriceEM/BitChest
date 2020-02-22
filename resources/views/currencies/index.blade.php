@@ -17,21 +17,21 @@
             <tr>
                 <td>Bitcoin</td>
                 <td>BTC</td>
-                <td>3056,87 €</td>
+                <td class="d-flex align-items-center">3056,87 €<i class="fas fa-2x fa-caret-up ml-2" style="color: #58ee58"></i></td>
                 <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Historique</a></td>
                 <td><a class="btn btn-sm btn-primary" href="#" role="button">Acheter</a></td>
             </tr>
             <tr>
                 <td>Ethereum</td>
                 <td>ETH</td>
-                <td>826,24 €</td>
+                <td class="d-flex align-items-center">826,24 €<i class="fas fa-2x fa-caret-down ml-2" style="color: #ff3c3c"></i></td>
                 <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Historique</a></td>
                 <td><a class="btn btn-sm btn-primary" href="#" role="button">Acheter</a></td>
             </tr>
             <tr>
                 <td>Ripple</td>
                 <td>XRP</td>
-                <td>214,07 €</td>
+                <td class="d-flex align-items-center">214,07 €<i class="fas fa-2x fa-caret-up ml-2" style="color: #58ee58"></i></td>
                 <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Historique</a></td>
                 <td><a class="btn btn-sm btn-primary" href="#" role="button">Acheter</a></td>
             </tr>
