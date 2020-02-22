@@ -11,7 +11,7 @@ class CurrenciesTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (config('currencies_list') as $api_id => $name) {
+        foreach (config('cryptocurrencies_list') as $api_id => $name) {
             DB::table('currencies')->insert([
                 'name' => $name,
                 'api_id' => $api_id
