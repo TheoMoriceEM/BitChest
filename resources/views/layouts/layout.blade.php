@@ -26,7 +26,7 @@
 
     <body>
         <div id="mainContainer">
-            <nav class="hidden position-relative d-flex flex-column justify-content-between p-3" id="sidebar">
+            <nav class="hidden position-fixed d-flex flex-column justify-content-between p-3" id="sidebar">
                 <div id="toggleNav" class="justify-content-center align-items-center">
                     <i class="fas fa-lg fa-bars"></i>
                 </div>
@@ -76,8 +76,8 @@
                 </div>
             </nav>
 
-            <main>
-                <div class="container">
+            <main id="content">
+                <div class="container-fluid">
                     @yield('content')
                 </div>
             </main>

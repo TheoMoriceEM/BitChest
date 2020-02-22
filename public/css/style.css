@@ -1,7 +1,28 @@
 #mainContainer {
   overflow-x: hidden;
 }
+#mainContainer #content {
+  margin-left: 20rem;
+}
 
+/**
+ * Responsive
+ */
+@media (max-width: 1199px) {
+  #mainContainer #content {
+    margin-left: 15rem;
+  }
+}
+@media (max-width: 991px) {
+  #mainContainer #content {
+    margin-left: 12rem;
+  }
+}
+@media (max-width: 767px) {
+  #mainContainer #content {
+    margin-left: 0;
+  }
+}
 #sidebar {
   width: 20rem;
   height: 100vh;
