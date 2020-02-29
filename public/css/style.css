@@ -34,6 +34,7 @@
   box-shadow: 5px 0px 8px 0px #949494;
   left: 0;
   transition: 0.3s cubic-bezier(0.4, 0, 1, 1);
+  z-index: 1;
 }
 #sidebar * {
   color: white;
