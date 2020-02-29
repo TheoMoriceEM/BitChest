@@ -14,24 +14,24 @@ class CurrencyController extends Controller
     public function index()
     {
         $currencies = Currency::all(); // Get all the currencies
+        $conversion_currency = config('currency')['api_id']; // Get the real currency for conversion
 
-        // Get their current rates through an API
+        $client = new Client([
+            'base_uri' => 'https://min-api.cryptocompare.com'
+        ]);
+
+        // Request to an API for getting the current rates of all the currencies
+        $response = $client->get('data/pricemulti', [
+            'query' => [
+                'fsyms' => $currencies->pluck('api_id')->implode(','), // Currencies identifiers
+                'tsyms' => $conversion_currency // Real currency used for conversion
+            ]
+        ]);
+
+        // Get the rates from JSON response and insert them into the models
         foreach ($currencies as $currency) {
-            $client = new Client([
-                'base_uri' => 'https://min-api.cryptocompare.com'
-            ]);
-
-            // Request to the API for getting the current rate
-            $response = $client->get('data/price', [
-                'query' => [
-                    'fsym'  => $currency->api_id, // Currency's identifier
-                    'tsyms' => config('currency')['api_id'] // Real currency used for conversion
-                ]
-            ]);
-
-            // Get the rate from JSON response
-            $conversion_currency = config('currency')['api_id'];
-            $currency->current_rate = json_decode($response->getBody())->$conversion_currency;
+            $api_id = $currency->api_id;
+            $currency->current_rate = json_decode($response->getBody())->$api_id->$conversion_currency;
         }
 
         return view('currencies.index', ['currencies' => $currencies]);
