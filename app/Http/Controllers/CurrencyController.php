@@ -48,6 +48,6 @@ class CurrencyController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('currencies.show');
     }
 }

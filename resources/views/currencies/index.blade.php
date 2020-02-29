@@ -3,6 +3,7 @@
 @section('title', 'Cours des cryptomonnaies')
 
 @section('content')
+    <h1 class="text-center mb-5">Liste des cryptomonnaies</h1>
     <table class="datatable">
         <thead>
             <tr>
@@ -26,7 +27,7 @@
                             <i class="change-caret-down fas fa-2x fa-caret-down ml-2"></i>
                         @endif
                     </td>
-                    <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Historique</a></td>
+                    <td><a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.show', $currency->id) }}" role="button">Historique</a></td>
                     <td><a class="btn btn-sm btn-primary" href="#" role="button">Acheter</a></td>
                 </tr>
             @endforeach
