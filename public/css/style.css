@@ -116,5 +116,11 @@
     display: flex;
   }
 }
+.change-caret-up {
+  color: #58ee58;
+}
+.change-caret-down {
+  color: #ff3c3c;
+}
 
 /*# sourceMappingURL=style.css.map */

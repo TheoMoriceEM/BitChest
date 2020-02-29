@@ -18,18 +18,18 @@
                 <tr>
                     <td>{{ $currency->name }}</td>
                     <td>{{ $currency->api_id }}</td>
-                    <td class="d-flex align-items-center">{{ $currency->current_rate }} {{ config('currency')['symbol'] }}<i class="fas fa-2x fa-caret-up ml-2" style="color: #58ee58"></i></td>
+                    <td class="d-flex align-items-center">
+                        {{ $currency->current_rate }} {{ config('currency')['symbol'] }}
+                        @if ($currency->change == '+')
+                            <i class="change-caret-up fas fa-2x fa-caret-up ml-2"></i>
+                        @else
+                            <i class="change-caret-down fas fa-2x fa-caret-down ml-2"></i>
+                        @endif
+                    </td>
                     <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Historique</a></td>
                     <td><a class="btn btn-sm btn-primary" href="#" role="button">Acheter</a></td>
                 </tr>
             @endforeach
-            <tr>
-                <td>Ethereum</td>
-                <td>ETH</td>
-                <td class="d-flex align-items-center">826,24 €<i class="fas fa-2x fa-caret-down ml-2" style="color: #ff3c3c"></i></td>
-                <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Historique</a></td>
-                <td><a class="btn btn-sm btn-primary" href="#" role="button">Acheter</a></td>
-            </tr>
         </tbody>
     </table>
 @endsection
