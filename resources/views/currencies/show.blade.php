@@ -1,9 +1,9 @@
 @extends('layouts.layout')
 
-@section('title', 'Cours du Bitcoin')
+@section('title', $title)
 
 @section('content')
-    <h1 class="text-center">Historique du Bitcoin</h1>
+    <h1 class="text-center">Historique du {{ $currency }}</h1>
     <div class="d-flex justify-content-center my-4">
         <a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.index') }}" role="button">Retour</a>
         <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Acheter</a>
@@ -17,22 +17,20 @@
             type: 'line',
             data: {
                 labels: [
-                    '01/02', '', '', '', '',
-                    '06/02', '', '', '', '',
-                    '11/02', '', '', '', '',
-                    '16/02', '', '', '', '',
-                    '21/02', '', '', '', '',
-                    '26/02', '', '', '', '01/03'
+                    @foreach ($days as $day)
+                        @if ($loop->first || $loop->iteration % 5 === 0)
+                            '{{ $day['date'] }}',
+                        @else
+                            '',
+                        @endif
+                    @endforeach
                 ],
                 datasets: [{
-                    label: 'Cours du Bitcoin',
+                    label: 'Cours du {{ $currency }}',
                     data: [
-                        65, 59, 80, 81, 56,
-                        55, 40, 28, 36, 64,
-                        65, 59, 80, 81, 56,
-                        55, 40, 28, 36, 64,
-                        65, 59, 80, 81, 56,
-                        55, 40, 28, 36, 64
+                        @foreach ($days as $day)
+                            {{ $day['rate'] }},
+                        @endforeach
                     ],
                     borderColor: 'rgb(75, 192, 192)',
                     backgroundColor: 'rgb(75, 192, 192, .1)',

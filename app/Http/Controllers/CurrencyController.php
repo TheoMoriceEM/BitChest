@@ -5,9 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Currency;
+use Carbon\Carbon;
 
 class CurrencyController extends Controller
 {
+    protected $client;
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // Initialize Guzzle for API calls
+        $this->client = new Client([
+            'base_uri' => 'https://min-api.cryptocompare.com'
+        ]);
+    }
+
     /**
      * Display the currencies list with their current rate.
      */
@@ -16,13 +32,8 @@ class CurrencyController extends Controller
         $currencies = Currency::all(); // Get cryptocurrencies from DB
         $conversion_currency = config('currency')['api_id']; // Get the real currency for conversion
 
-        // Initialize Guzzle for API calls
-        $client = new Client([
-            'base_uri' => 'https://min-api.cryptocompare.com'
-        ]);
-
         // Request to API for getting cryptocurrencies' data
-        $response = $client->get('data/pricemultifull', [
+        $response = $this->client->get('data/pricemultifull', [
             'query' => [
                 'fsyms' => $currencies->pluck('api_id')->implode(','), // Cryptocurrencies' identifiers
                 'tsyms' => $conversion_currency // Real currency to convert rate to
@@ -46,8 +57,31 @@ class CurrencyController extends Controller
     /**
      * Display a currency's rate history.
      */
-    public function show($id)
+    public function show(Currency $currency)
     {
-        return view('currencies.show');
+        // Request to API for getting cryptocurrency's history
+        $response = $this->client->get('data/v2/histoday', [
+            'query' => [
+                'fsym'  => $currency->api_id, // Cryptocurrency's identifier
+                'tsym'  => config('currency')['api_id'], // Real currency to convert rate to
+                'limit' => 29 // Number of past days to retrieve
+            ]
+        ]);
+
+        $data = json_decode($response->getBody())->Data->Data; // Get data from JSON
+        $days = [];
+
+        // Loop through days to retrieve the wanted data for each one of them
+        foreach ($data as $index => $day) {
+            $date = new Carbon($day->time);
+            $days[$index]['date'] = $date->format('d/m'); // Format the date
+            $days[$index]['rate'] = $day->open; // Rate at the date
+        }
+
+        return view('currencies.show', [
+            'title' => 'Historique du ' . $currency->name,
+            'currency' => $currency->name,
+            'days' => $days
+        ]);
     }
 }

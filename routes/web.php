@@ -15,7 +15,7 @@ Route::get('/', 'CurrencyController@index')->name('home');
 
 Route::middleware('auth')->prefix('currencies')->name('currencies.')->group(function () {
     Route::get('/', 'CurrencyController@index')->name('index');
-    Route::get('/{id}', 'CurrencyController@show')->name('show');
+    Route::get('/{currency}', 'CurrencyController@show')->name('show');
 });
 
 Auth::routes();
