@@ -3,12 +3,20 @@
 @section('title', $title)
 
 @section('content')
-    <h1 class="text-center">Historique du {{ $currency->name }}</h1>
-    <div class="d-flex justify-content-center my-4">
-        <a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.index') }}" role="button">Retour</a>
-        <a class="btn btn-sm btn-primary ml-3" href="{{ route('transactions.create', $currency->id) }}" role="button">Acheter</a>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Historique du {{ $currency->name }}</h1>
+            <div class="d-flex justify-content-center my-4">
+                <a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.index') }}" role="button">Retour liste</a>
+                <a class="btn btn-sm btn-primary ml-3" href="{{ route('transactions.create', $currency->id) }}" role="button">Acheter</a>
+            </div>
+        </div>
     </div>
-    <canvas id="historyChart"></canvas>
+    <div class="row">
+        <div class="col-12">
+            <canvas id="historyChart"></canvas>
+        </div>
+    </div>
 @endsection
 
 @section('JS')
