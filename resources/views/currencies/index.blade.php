@@ -17,7 +17,7 @@
         <tbody>
             @foreach ($currencies as $currency)
                 <tr>
-                    <td>{{ $currency->name }}</td>
+                    <td><img src="{{ asset($currency->logo) }}" alt="Logo {{ $currency->name }}" class="mr-3">{{ $currency->name }}</td>
                     <td>{{ $currency->api_id }}</td>
                     <td class="d-flex align-items-center">
                         {{ $currency->current_rate }} {{ config('currency')['symbol'] }}
