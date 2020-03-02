@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CurrenciesTableSeeder extends Seeder
 {
@@ -13,8 +14,9 @@ class CurrenciesTableSeeder extends Seeder
     {
         foreach (config('cryptocurrencies_list') as $api_id => $name) {
             DB::table('currencies')->insert([
-                'name' => $name,
-                'api_id' => $api_id
+                'name'      => $name,
+                'logo'      => 'storage/' . Str::kebab($name) . '.png',
+                'api_id'    => $api_id
             ]);
         }
     }
