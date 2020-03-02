@@ -80,7 +80,7 @@ class CurrencyController extends Controller
 
         return view('currencies.show', [
             'title' => 'Historique du ' . $currency->name,
-            'currency' => $currency->name,
+            'currency' => $currency,
             'days' => $days
         ]);
     }

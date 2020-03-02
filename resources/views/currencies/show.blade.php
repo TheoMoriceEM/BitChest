@@ -3,10 +3,10 @@
 @section('title', $title)
 
 @section('content')
-    <h1 class="text-center">Historique du {{ $currency }}</h1>
+    <h1 class="text-center">Historique du {{ $currency->name }}</h1>
     <div class="d-flex justify-content-center my-4">
         <a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.index') }}" role="button">Retour</a>
-        <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Acheter</a>
+        <a class="btn btn-sm btn-primary ml-3" href="{{ route('transactions.create', $currency->id) }}" role="button">Acheter</a>
     </div>
     <canvas id="historyChart"></canvas>
 @endsection
@@ -26,7 +26,7 @@
                     @endforeach
                 ],
                 datasets: [{
-                    label: 'Cours du {{ $currency }}',
+                    label: 'Cours du {{ $currency->name }}',
                     data: [
                         @foreach ($days as $day)
                             {{ $day['rate'] }},

@@ -28,7 +28,7 @@
                         @endif
                     </td>
                     <td><a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.show', $currency->id) }}" role="button">Historique</a></td>
-                    <td><a class="btn btn-sm btn-primary" href="#" role="button">Acheter</a></td>
+                    <td><a class="btn btn-sm btn-primary" href="{{ route('transactions.create', $currency->id) }}" role="button">Acheter</a></td>
                 </tr>
             @endforeach
         </tbody>

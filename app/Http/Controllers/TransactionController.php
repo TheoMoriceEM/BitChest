@@ -35,9 +35,9 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($currency)
     {
-        //
+        return view('transactions.create');
     }
 
     /**

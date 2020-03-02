@@ -19,6 +19,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'CurrencyController@index')->name('index');
         Route::get('/{currency}', 'CurrencyController@show')->name('show');
     });
+
+    Route::prefix('transactions')->name('transactions.')->group(function () {
+        Route::get('/create/{currency}', 'TransactionController@create')->name('create');
+    });
 });
 
 Auth::routes();
