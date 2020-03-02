@@ -11,11 +11,14 @@
 |
 */
 
-Route::get('/', 'CurrencyController@index')->name('home');
+Route::middleware('auth')->group(function () {
+    Route::get('/', 'CurrencyController@index')->name('home');
+    Route::get('/home', 'CurrencyController@index')->name('home');
 
-Route::middleware('auth')->prefix('currencies')->name('currencies.')->group(function () {
-    Route::get('/', 'CurrencyController@index')->name('index');
-    Route::get('/{currency}', 'CurrencyController@show')->name('show');
+    Route::prefix('currencies')->name('currencies.')->group(function () {
+        Route::get('/', 'CurrencyController@index')->name('index');
+        Route::get('/{currency}', 'CurrencyController@show')->name('show');
+    });
 });
 
 Auth::routes();
