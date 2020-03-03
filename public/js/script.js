@@ -6,8 +6,15 @@ $(function () {
 
     // DataTable
     $('.datatable').DataTable({
-        "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
         }
+    });
+
+    // Buying form
+    $('.buying_options').change(function() {
+        const input = $(this).val();
+        $(`.buying-inputs#${input}`).show();
+        $(`.buying-inputs:not(#${input})`).hide();
     });
 });
