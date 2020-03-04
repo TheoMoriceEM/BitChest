@@ -7,12 +7,23 @@
         <div class="col-12">
             <h1 class="text-center">Achat {{ $currency->name }}</h1>
             <div class="d-flex justify-content-center my-4">
-                <a class="btn btn-sm btn-outline-secondary" href="#" role="button">Retour liste</a>
-                <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Historique</a>
+                <a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.index') }}" role="button">Retour liste</a>
+                <a class="btn btn-sm btn-primary ml-3" href="{{ route('currencies.show', $currency->id) }}" role="button">Historique</a>
             </div>
         </div>
     </div>
     <div class="row">
+        <div class="col-12">
+            <div class="alert alert-info" role="alert">
+                Cours actuel du {{ $currency->name }} :
+                <span class="font-weight-bold">
+                    <span id="currentRate">7985.36</span> €
+                </span>
+                <button type="button" id="refreshRate" class="btn btn-info text-white ml-2" data-toggle="tooltip" data-placement="top" title="Rafraîchir le cours actuel">
+                    <i class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
         <div class="col-12">
             <form action="{{ route('transactions.store') }}" method="POST">
                 @csrf
@@ -43,4 +54,28 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('JS')
+    <script>
+        $('#refreshRate').click(function() {
+            const refreshIcon = $('#refreshRate .fa-sync');
+            refreshIcon.addClass('fa-spin');
+
+            $.get({
+                url: 'https://min-api.cryptocompare.com/data/price',
+                data: {
+                    fsym: 'BTC',
+                    tsyms: 'EUR'
+                },
+                success: function(data) {
+                    refreshIcon.removeClass('fa-spin');
+                    $('#currentRate').text(data.EUR);
+                }
+            })
+            .fail(function(error) {
+                console.log(error);
+            });
+        });
+    </script>
 @endsection

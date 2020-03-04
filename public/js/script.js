@@ -17,4 +17,7 @@ $(function () {
         $(`.buying-inputs#${input}`).show();
         $(`.buying-inputs:not(#${input})`).hide();
     });
+
+    // Trigger tooltips
+    $('[data-toggle="tooltip"]').tooltip()
 });
