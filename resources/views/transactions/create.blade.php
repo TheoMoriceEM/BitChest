@@ -46,7 +46,7 @@
                     <input type="number" class="form-control" id="amount" name="amount" aria-describedby="amountTotal">
                     <small class="form-text text-muted">
                         Total de {{ $currency->name }} acquis :
-                        <span id="quantityTotal"></span>
+                        <span id="quantityTotal" class="font-weight-bold"></span>
                     </small>
                 </div>
                 <div class="form-group buying-inputs" id="quantityBuyingInput">
@@ -54,7 +54,9 @@
                     <input type="number" class="form-control" id="quantity" name="quantity" step="0.001" aria-describedby="quantityTotal">
                     <small class="form-text text-muted">
                         Total à payer :
-                        <span id="amountTotal"></span> €
+                        <span class="font-weight-bold">
+                            <span id="amountTotal"></span> €
+                        </span>
                     </small>
                 </div>
                 <input type="hidden" name="fk_currency" value="{{ $currency->id }}">
