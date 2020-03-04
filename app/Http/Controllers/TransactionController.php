@@ -3,9 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
+use Carbon\Carbon;
+use App\Currency;
+use App\Transaction;
 
 class TransactionController extends Controller
 {
+    protected $client;
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // Set timezone
+        date_default_timezone_set('Europe/Paris');
+
+        // Initialize Guzzle for API calls
+        $this->client = new Client([
+            'base_uri' => 'https://min-api.cryptocompare.com'
+        ]);
+    }
+
     /**
      * Display all of the user's transactions.
      */
@@ -35,9 +58,11 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($currency)
+    public function create(Currency $currency)
     {
-        return view('transactions.create');
+        $title = 'Acheter du ' . $currency->name;
+
+        return view('transactions.create', ['title' => $title, 'currency' => $currency]);
     }
 
     /**
@@ -48,7 +73,37 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->all(); // Get form inputs data
+
+        $attributes['fk_user'] = Auth::id(); // Get user's id to insert it
+        $attributes['purchase_date'] = Carbon::now()->toDateTimeString(); // Get current datetime to insert it
+
+        // API request to get the currency's current rate
+        $response = $this->client->get('data/price', [
+            'query' => [
+                'fsym' => $attributes['currency_api_id'], // Cryptocurrency whose rate we want
+                'tsyms' => config('currency')['api_id'] // Real currency to convert the rate to
+            ]
+        ]);
+
+        $data = json_decode($response->getBody()); // Get data from JSON
+
+        $attributes['purchase_price'] = $data->EUR; // Get current rate to insert it
+
+        // Calculate quantity or amount depending on which buying option the user chose
+        if ($attributes['buying_option'] == 'amountBuyingInput') {
+            $attributes['quantity'] = $attributes['amount'] / $attributes['purchase_price'];
+        } elseif ($attributes['buying_option'] == 'quantityBuyingInput') {
+            $attributes['amount'] = $attributes['quantity'] * $attributes['purchase_price'];
+        }
+
+        $transaction = Transaction::create($attributes); // Create transaction in DB
+
+        // TODO: send back to wallet homepage
+        return redirect()->route('home');
+        // return redirect()
+        //     ->route('...')
+        //     ->with('message', 'La transaction a bien été effectuée. Vous avez acheté : ' . $transaction->quantity . ' ' . $transaction->currency->name . '.');
     }
 
     /**
