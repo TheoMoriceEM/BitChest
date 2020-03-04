@@ -17,7 +17,7 @@
             <div class="alert alert-info" role="alert">
                 Cours actuel du {{ $currency->name }} :
                 <span class="font-weight-bold">
-                    <span id="currentRate">7985.36</span> €
+                    <span id="currentRate"></span> €
                 </span>
                 <button type="button" id="refreshRate" class="btn btn-info text-white ml-2" data-toggle="tooltip" data-placement="top" title="Rafraîchir le cours actuel">
                     <i class="fas fa-sync"></i>
@@ -58,10 +58,9 @@
 
 @section('JS')
     <script>
-        $('#refreshRate').click(function() {
-            const refreshIcon = $('#refreshRate .fa-sync');
-            refreshIcon.addClass('fa-spin');
+        const refreshIcon = $('#refreshRate .fa-sync');
 
+        function displayCurrentRate() {
             $.get({
                 url: 'https://min-api.cryptocompare.com/data/price',
                 data: {
@@ -76,6 +75,15 @@
             .fail(function(error) {
                 console.log(error);
             });
+        }
+
+        $(function() {
+            displayCurrentRate();
+        });
+
+        $('#refreshRate').click(function() {
+            refreshIcon.addClass('fa-spin');
+            displayCurrentRate();
         });
     </script>
 @endsection
