@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group buying-inputs" id="amountBuyingInput">
                     <label for="amount">Somme à investir</label>
-                    <input type="number" class="form-control" id="amount" name="amount" aria-describedby="amountTotal">
+                    <input type="number" class="form-control" id="amount" name="amount" max="999999" aria-describedby="amountTotal">
                     <small class="form-text text-muted">
                         Total de {{ $currency->name }} acquis :
                         <span id="quantityTotal" class="font-weight-bold"></span>
@@ -92,11 +92,18 @@
                 },
                 success: function(data) {
                     currentRate = data.EUR;
+
                     // Refresh payment infos
                     calcAndDisplayQuantity();
                     calcAndDisplayAmount();
-                    refreshIcon.removeClass('fa-spin'); // Stop icon spinning
+
                     $('#currentRate').text(currentRate); // Refresh rate display
+
+                    // Calculate max value for quantity input (total amount mustn't exceed 999999)
+                    const qtyMax = 999999 / currentRate;
+                    $('#quantity').attr('max', qtyMax);
+
+                    refreshIcon.removeClass('fa-spin'); // Stop icon spinning
                 }
             })
             .fail(function(error) {
