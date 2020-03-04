@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col-12">
-            <form action="{{ route('transactions.store') }}" method="POST">
+            <form id="buyingForm" action="{{ route('transactions.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="buying_option">Choisissez une méthode d'achat :</label>
@@ -120,6 +120,11 @@
             } else if ($(this).is('#quantity')) {
                 calcAndDisplayAmount();
             }
+        });
+
+        // Confirm before form submitting
+        $("#buyingForm").on("submit", function () {
+            return confirm("Confimer l'achat ?");
         });
     </script>
 @endsection
