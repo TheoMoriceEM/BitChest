@@ -33,11 +33,11 @@
                 <div class="form-group">
                     <label for="buying_option">Choisissez une méthode d'achat :</label>
                     <div class="form-check">
-                        <input class="form-check-input buying_options" type="radio" name="buying_option" id="buy_by_amount" value="amountBuyingInput">
+                        <input class="form-check-input buying_options" type="radio" name="buying_option" id="buy_by_amount" value="amountBuyingInput" required>
                         <label class="form-check-label" for="buy_by_amount">Investir une certaine somme</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input buying_options" type="radio" name="buying_option" id="buy_by_quantity" value="quantityBuyingInput">
+                        <input class="form-check-input buying_options" type="radio" name="buying_option" id="buy_by_quantity" value="quantityBuyingInput" required>
                         <label class="form-check-label" for="buy_by_quantity">Acheter une certaine quantité</label>
                     </div>
                 </div>
