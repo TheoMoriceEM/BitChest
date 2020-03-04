@@ -14,6 +14,9 @@
     </div>
     <div class="row">
         <div class="col-12">
+            <div class="alert alert-warning" role="alert">
+                <span class="font-weight-bold">Attention :</span> toutes les informations de paiement sont calculées par rapport au cours de la monnaie au moment où vous êtes arrivé(e) sur cette page. Pour actualiser ces informations en fonction du cours le plus récent, cliquez sur le bouton <span class="font-weight-bold">"Rafraîchir le cours actuel"</span> ci-dessous.
+            </div>
             <div class="alert alert-info" role="alert">
                 Cours actuel du {{ $currency->name }} :
                 <span class="font-weight-bold">
@@ -41,12 +44,18 @@
                 <div class="form-group buying-inputs" id="amountBuyingInput">
                     <label for="amount">Somme à investir</label>
                     <input type="number" class="form-control" id="amount" name="amount" aria-describedby="amountTotal">
-                    <small id="amountTotal" class="form-text text-muted">Total de {{ $currency->name }} acquis : 0.235689</small>
+                    <small class="form-text text-muted">
+                        Total de {{ $currency->name }} acquis :
+                        <span id="quantityTotal"></span>
+                    </small>
                 </div>
                 <div class="form-group buying-inputs" id="quantityBuyingInput">
                     <label for="quantity">Quantité à acheter</label>
                     <input type="number" class="form-control" id="quantity" name="quantity" step="0.001" aria-describedby="quantityTotal">
-                    <small id="quantityTotal" class="form-text text-muted">Total à payer : 524.89 €</small>
+                    <small class="form-text text-muted">
+                        Total à payer :
+                        <span id="amountTotal"></span> €
+                    </small>
                 </div>
                 <input type="hidden" name="fk_currency" value="{{ $currency->id }}">
                 <input type="hidden" name="currency_api_id" value="{{ $currency->api_id }}">
@@ -58,18 +67,34 @@
 
 @section('JS')
     <script>
+        let currentRate;
         const refreshIcon = $('#refreshRate .fa-sync');
 
-        function displayCurrentRate() {
+        function calcAndDisplayQuantity() {
+            const quantityTotal = $('#amount').val() / currentRate;
+            $('#quantityTotal').text(quantityTotal.toFixed(4));
+        }
+
+        function calcAndDisplayAmount() {
+            const amountTotal = $('#quantity').val() * currentRate;
+            $('#amountTotal').text(amountTotal.toFixed(2));
+        }
+
+        function getAndDisplayCurrentRate() {
+            // Get current rate from the API
             $.get({
                 url: 'https://min-api.cryptocompare.com/data/price',
                 data: {
-                    fsym: 'BTC',
-                    tsyms: 'EUR'
+                    fsym: '{{ $currency->api_id }}',
+                    tsyms: '{{ config('currency')['api_id'] }}'
                 },
                 success: function(data) {
-                    refreshIcon.removeClass('fa-spin');
-                    $('#currentRate').text(data.EUR);
+                    currentRate = data.EUR;
+                    // Refresh payment infos
+                    calcAndDisplayQuantity();
+                    calcAndDisplayAmount();
+                    refreshIcon.removeClass('fa-spin'); // Stop icon spinning
+                    $('#currentRate').text(currentRate); // Refresh rate display
                 }
             })
             .fail(function(error) {
@@ -77,13 +102,24 @@
             });
         }
 
+        // On page load
         $(function() {
-            displayCurrentRate();
+            getAndDisplayCurrentRate();
         });
 
+        // On click on refresh button
         $('#refreshRate').click(function() {
-            refreshIcon.addClass('fa-spin');
-            displayCurrentRate();
+            refreshIcon.addClass('fa-spin'); // Make the icon spin during the request
+            getAndDisplayCurrentRate(); // Refresh payment info
+        });
+
+        // When the user types in an input
+        $('input[type="number"]').on('input', function() {
+            if ($(this).is('#amount')) {
+                calcAndDisplayQuantity();
+            } else if ($(this).is('#quantity')) {
+                calcAndDisplayAmount();
+            }
         });
     </script>
 @endsection
