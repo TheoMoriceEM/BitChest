@@ -20,24 +20,35 @@
                         <th>Identifiant</th>
                         <th>Quantité</th>
                         <th>Cours actuel</th>
-                        <th>Plus-value</th>
+                        <th>Plus/Moins-value</th>
                         <th data-orderable="false"></th>
                         <th data-orderable="false"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><img src="{{ asset('storage/bitcoin.png') }}" alt="Logo Bitcoin" class="mr-3">Bitcoin</td>
-                        <td>BTC</td>
-                        <td>6,65</td>
-                        <td class="d-flex align-items-center">
-                            7895.64 {{ config('currency')['symbol'] }}
-                            <i class="change-caret-up fas fa-2x fa-caret-up ml-2"></i>
-                        </td>
-                        <td class="text-danger">- 548,69 {{ config('currency')['symbol'] }}</td>
-                        <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Voir les transactions</a></td>
-                        <td><a class="btn btn-sm btn-primary" href="#" role="button">Vendre</a></td>
-                    </tr>
+                    @foreach ($currencies as $currency)
+                        <tr>
+                            <td><img src="{{ asset($currency['currency']->logo) }}" alt="Logo {{ $currency['currency']->name }}" class="mr-3">{{ $currency['currency']->name }}</td>
+                            <td>{{ $currency['currency']->api_id }}</td>
+                            <td>{{ $currency['total_quantity'] }}</td>
+                            <td class="d-flex align-items-center">
+                                {{ $currency['current_rate'] }} {{ config('currency')['symbol'] }}
+                                @if ($currency['change'] == '+')
+                                    <i class="change-caret-up fas fa-2x fa-caret-up ml-2"></i>
+                                @else
+                                    <i class="change-caret-down fas fa-2x fa-caret-down ml-2"></i>
+                                @endif
+                            </td>
+                            @if ($currency['increase'] > 0)
+                                <td class="text-success">
+                            @else
+                                <td class="text-danger">
+                            @endif
+                                {{ $currency['increase'] }} {{ config('currency')['symbol'] }}</td>
+                            <td><a class="btn btn-sm btn-outline-secondary" href="#" role="button">Voir les transactions</a></td>
+                            <td><a class="btn btn-sm btn-primary" href="#" role="button">Vendre</a></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 

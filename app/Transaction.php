@@ -30,4 +30,12 @@ class Transaction extends Model
      * @var array
      */
     protected $casts = [];
+
+    /**
+     * Get the currency linked to the transaction.
+     */
+    public function currency()
+    {
+        return $this->belongsTo('App\Currency');
+    }
 }

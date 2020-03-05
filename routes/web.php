@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', 'TransactionController@store')->name('store');
     });
 
-    Route::get('/wallet/{user}', 'WalletController@index')->name('wallet');
+    Route::get('/wallet', 'WalletController@index')->name('wallet');
 });
 
 Auth::routes();
