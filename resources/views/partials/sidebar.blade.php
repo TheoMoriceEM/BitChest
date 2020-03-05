@@ -10,13 +10,13 @@
             </div>
         </a>
         <ul class="my-5 p-0">
-            <a href="#">
+            <a href="{{ route('currencies.index') }}">
                 <li class="sidebar-item d-flex align-items-center mb-2 active">
                     <i class="fab fa-lg fa-bitcoin"></i>
                     <span class="text-capitalize ml-2">Les cryptomonnaies</span>
                 </li>
             </a>
-            <a href="#">
+            <a href="{{ route('currencies.index') }}">
                 <li class="sidebar-item d-flex align-items-center mb-2">
                     <i class="fas fa-lg fa-wallet"></i>
                     <span class="text-capitalize ml-2">Mon portefeuille</span>
