@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use GuzzleHttp\Client;
 use Carbon\Carbon;
 use App\Currency;
 use App\Transaction;
+use App\API;
 
 class TransactionController extends Controller
 {
-    protected $client;
-
     /**
      * Instantiate a new controller instance.
      *
@@ -22,11 +20,6 @@ class TransactionController extends Controller
     {
         // Set timezone
         date_default_timezone_set('Europe/Paris');
-
-        // Initialize Guzzle for API calls
-        $this->client = new Client([
-            'base_uri' => 'https://min-api.cryptocompare.com'
-        ]);
     }
 
     /**
@@ -71,24 +64,13 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, API $api)
     {
         $attributes = $request->all(); // Get form inputs data
 
         $attributes['user_id'] = Auth::id(); // Get user's id to insert it
         $attributes['purchase_date'] = Carbon::now()->toDateTimeString(); // Get current datetime to insert it
-
-        // API request to get the currency's current rate
-        $response = $this->client->get('data/price', [
-            'query' => [
-                'fsym' => $attributes['currency_api_id'], // Cryptocurrency whose rate we want
-                'tsyms' => config('currency')['api_id'] // Real currency to convert the rate to
-            ]
-        ]);
-
-        $data = json_decode($response->getBody()); // Get data from JSON
-
-        $attributes['purchase_price'] = $data->EUR; // Get current rate to insert it
+        $attributes['purchase_price'] = $api->getPrice($attributes['currency_api_id']); // Get current rate to insert it
 
         // Calculate quantity or amount depending on which buying option the user chose
         if ($attributes['buying_option'] == 'amountBuyingInput') {
