@@ -59,7 +59,7 @@
                         </span>
                     </small>
                 </div>
-                <input type="hidden" name="fk_currency" value="{{ $currency->id }}">
+                <input type="hidden" name="currency_id" value="{{ $currency->id }}">
                 <input type="hidden" name="currency_api_id" value="{{ $currency->api_id }}">
                 <button type="submit" class="btn btn-primary">Confirmer l'achat</button>
             </form>

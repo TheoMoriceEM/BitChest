@@ -15,10 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('fk_currency');
-            $table->foreign('fk_currency')->references('id')->on('currencies');
-            $table->unsignedBigInteger('fk_user');
-            $table->foreign('fk_user')->references('id')->on('users');
+            $table->unsignedBigInteger('currency_id');
+            $table->foreign('currency_id')->references('id')->on('currencies');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedDecimal('amount')->default(0);
             $table->unsignedDecimal('quantity');
             $table->unsignedDecimal('purchase_price');

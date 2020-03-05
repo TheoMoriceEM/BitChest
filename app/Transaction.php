@@ -14,7 +14,7 @@ class Transaction extends Model
      * @var array
      */
     protected $fillable = [
-        'fk_currency', 'fk_user', 'amount', 'quantity', 'purchase_price', 'purchase_date', 'sold', 'selling_amount', 'selling_date'
+        'currency_id', 'user_id', 'amount', 'quantity', 'purchase_price', 'purchase_date', 'sold', 'selling_amount', 'selling_date'
     ];
 
     /**

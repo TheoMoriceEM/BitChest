@@ -20,7 +20,7 @@ class TransactionsTableSeeder extends Seeder
         $admin_ids = Arr::pluck($admins, 'id');
 
         DB::table('transactions')
-            ->whereIn('fk_user', $admin_ids)
+            ->whereIn('user_id', $admin_ids)
             ->delete();
 
         // Set amount depending on quantity and purchase price defined previously by the factory

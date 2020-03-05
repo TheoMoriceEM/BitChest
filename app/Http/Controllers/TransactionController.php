@@ -75,7 +75,7 @@ class TransactionController extends Controller
     {
         $attributes = $request->all(); // Get form inputs data
 
-        $attributes['fk_user'] = Auth::id(); // Get user's id to insert it
+        $attributes['user_id'] = Auth::id(); // Get user's id to insert it
         $attributes['purchase_date'] = Carbon::now()->toDateTimeString(); // Get current datetime to insert it
 
         // API request to get the currency's current rate
