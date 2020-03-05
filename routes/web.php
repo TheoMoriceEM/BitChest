@@ -13,7 +13,7 @@
 
 Route::middleware('auth')->group(function () {
     Route::get('/', 'CurrencyController@index')->name('home');
-    Route::get('/home', 'CurrencyController@index')->name('home');
+    Route::get('/home', 'CurrencyController@index');
 
     Route::prefix('currencies')->name('currencies.')->group(function () {
         Route::get('/', 'CurrencyController@index')->name('index');
@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/create/{currency}', 'TransactionController@create')->name('create');
         Route::post('/', 'TransactionController@store')->name('store');
     });
+
+    Route::get('/wallet/{user}', 'WalletController@index')->name('wallet');
 });
 
 Auth::routes();

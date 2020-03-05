@@ -11,6 +11,6 @@ class WalletController extends Controller
      */
     public function index($user_id)
     {
-        //
+        return view('wallet.index');
     }
 }

@@ -16,7 +16,7 @@
                     <span class="text-capitalize ml-2">Les cryptomonnaies</span>
                 </li>
             </a>
-            <a href="{{ route('currencies.index') }}">
+            <a href="{{ route('wallet', Auth::id()) }}">
                 <li class="sidebar-item d-flex align-items-center mb-2">
                     <i class="fas fa-lg fa-wallet"></i>
                     <span class="text-capitalize ml-2">Mon portefeuille</span>
