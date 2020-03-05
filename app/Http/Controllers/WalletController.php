@@ -68,7 +68,7 @@ class WalletController extends Controller
 
             $currency['current_rate'] = $this->data->$api_id->$conversion_currency->PRICE;
             $currency['change'] = $this->data->$api_id->$conversion_currency->CHANGE24HOUR > 0 ? '+' : '-';
-            $currency['increase'] = $currency['current_rate'] * $currency['total_quantity'] - $currency['total_amount']; // Compare what the user spent to what they could get if they sold it all to calculate increase/decrease
+            $currency['increase'] = round($currency['current_rate'] * $currency['total_quantity'] - $currency['total_amount'], 2); // Compare what the user spent to what they could get if they sold it all to calculate increase/decrease
 
             return $currency;
         });
