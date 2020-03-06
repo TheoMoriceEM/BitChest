@@ -25,12 +25,12 @@ class TransactionController extends Controller
     /**
      * Display the user's transactions (all of them or by currency).
      */
-    public function index($currency = null)
+    public function index(Currency $currency = null)
     {
         $user = User::find(Auth::id());
-        $transactions = $currency ? $user->transactions()->where('currency_id', $currency)->get() : $user->transactions;
+        $transactions = $currency ? $user->transactions()->where('currency_id', $currency->id)->get() : $user->transactions;
 
-        return view('transactions.index', ['transactions' => $transactions]);
+        return view('transactions.index', ['transactions' => $transactions, 'currency' => $currency]);
     }
 
     /**

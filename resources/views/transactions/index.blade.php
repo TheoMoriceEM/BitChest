@@ -5,10 +5,12 @@
 @section('content')
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center">Liste des transactions</h1>
+            <h1 class="text-center">Liste des transactions @if($currency) de {{ $currency->name }} @endif</h1>
             <div class="d-flex justify-content-center my-4">
                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('wallet') }}" role="button">Retour au portefeuille</a>
-                {{-- <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Vendre</a> --}}
+                @if ($currency)
+                    <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Vendre</a>
+                @endif
             </div>
         </div>
     </div>
