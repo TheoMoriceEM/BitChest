@@ -26,7 +26,7 @@ class TransactionController extends Controller
      */
     public function index($currency = null)
     {
-        //
+        return view('transactions.index');
     }
 
     /**
