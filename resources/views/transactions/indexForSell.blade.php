@@ -14,13 +14,28 @@
     </div>
     <div class="row">
         <div class="col-12">
+            <div class="alert alert-warning" role="alert">
+                <span class="font-weight-bold">Attention :</span> toutes les informations de paiement sont calculées par rapport au cours de la monnaie au moment où vous êtes arrivé(e) sur cette page. Pour actualiser ces informations en fonction du cours le plus récent, cliquez sur le bouton <span class="font-weight-bold">"Rafraîchir le cours actuel"</span> ci-dessous.
+            </div>
+            <div class="alert alert-info" role="alert">
+                Cours actuel du Bitcoin :
+                <span class="font-weight-bold">
+                    <span id="currentRate">7896.25</span> €
+                </span>
+                <button type="button" id="refreshRate" class="btn btn-info text-white ml-2" data-toggle="tooltip" data-placement="top" title="Rafraîchir le cours actuel">
+                    <i class="fas fa-sync"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <table class="datatable custom">
                 <thead>
                     <tr>
                         <th>Quantité</th>
                         <th>Cours à l'achat</th>
                         <th>Total dépensé</th>
-                        <th>Cours actuel</th>
                         <th>Total de vente potentiel</th>
                         <th>Plus/Moins-value</th>
                         <th>Date d'achat</th>
@@ -32,7 +47,6 @@
                         <td>0.42</td>
                         <td>8796.31 €</td>
                         <td>4000 €</td>
-                        <td>7458.39 €</td>
                         <td>3325.14 €</td>
                         <td class="text-danger">-755.69 €</td>
                         <td>20/11/2019 15:46</td>
