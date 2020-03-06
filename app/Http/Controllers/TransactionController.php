@@ -28,7 +28,9 @@ class TransactionController extends Controller
     public function index(Currency $currency = null)
     {
         $user = User::find(Auth::id());
-        $transactions = $currency ? $user->transactions()->where('currency_id', $currency->id)->get() : $user->transactions;
+        $transactions = $currency
+            ? $user->transactions()->where('currency_id', $currency->id)->get()
+            : $user->transactions;
 
         $transactions = $transactions->map(function ($transaction) {
             $carbon_purchase_date = new Carbon($transaction->purchase_date);
@@ -48,7 +50,21 @@ class TransactionController extends Controller
      */
     public function indexForSell(Currency $currency)
     {
-        return view('transactions.indexForSell');
+        $transactions = User::find(Auth::id())
+            ->transactions()
+            ->where([
+                'sold' => false,
+                'currency_id' => $currency->id
+            ])
+            ->get();
+
+        $transactions = $transactions->map(function ($transaction) {
+            $carbon_purchase_date = new Carbon($transaction->purchase_date);
+            $transaction->purchase_date = $carbon_purchase_date->format('d/m/Y h:m');
+            return $transaction;
+        });
+
+        return view('transactions.indexForSell', ['transactions' => $transactions]);
     }
 
     /**

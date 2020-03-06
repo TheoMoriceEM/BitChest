@@ -43,15 +43,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>0.42</td>
-                        <td>8796.31 €</td>
-                        <td>4000 €</td>
-                        <td>3325.14 €</td>
-                        <td class="text-danger">-755.69 €</td>
-                        <td>20/11/2019 15:46</td>
-                        <td><a class="btn btn-sm btn-primary" href="#" role="button">Vendre</a></td>
-                    </tr>
+                    @foreach ($transactions as $transaction)
+                        <tr>
+                            <td>{{ $transaction->quantity }}</td>
+                            <td>{{ $transaction->purchase_price }} €</td>
+                            <td>{{ $transaction->amount }} €</td>
+                            <td>3325.14 €</td>
+                            <td class="text-danger">-755.69 €</td>
+                            <td>{{ $transaction->purchase_date }}</td>
+                            <td><a class="btn btn-sm btn-primary" href="#" role="button">Vendre</a></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
