@@ -162,7 +162,10 @@
     <script>
         $(function() {
             $('.datatable.custom').DataTable({
-                order: [[5, "desc"]]
+                order: [[5, "desc"]],
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                }
             });
         });
     </script>

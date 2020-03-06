@@ -100,7 +100,10 @@
 
         $(function() {
             $('.datatable.custom').DataTable({
-                order: [[4, "desc"]]
+                order: [[4, "desc"]],
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                }
             });
 
             getAndDisplayCurrentRate(); // On page load
