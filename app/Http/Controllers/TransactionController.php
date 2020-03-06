@@ -39,6 +39,12 @@ class TransactionController extends Controller
             $carbon_selling_date = new Carbon($transaction->selling_date);
             $transaction->selling_date = $carbon_selling_date->format('d/m/Y h:m');
 
+            $transaction->quantity = round($transaction->quantity, 4);
+
+            $transaction->purchase_price = round($transaction->purchase_price, 2);
+
+            $transaction->selling_price = round($transaction->selling_price, 2);
+
             return $transaction;
         });
 
@@ -61,6 +67,9 @@ class TransactionController extends Controller
         $transactions = $transactions->map(function ($transaction) {
             $carbon_purchase_date = new Carbon($transaction->purchase_date);
             $transaction->purchase_date = $carbon_purchase_date->format('d/m/Y h:m');
+
+            $transaction->purchase_price = round($transaction->purchase_price, 4);
+
             return $transaction;
         });
 

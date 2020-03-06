@@ -20,12 +20,12 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedDecimal('amount')->default(0);
-            $table->unsignedDecimal('quantity');
-            $table->unsignedDecimal('purchase_price');
+            $table->unsignedDecimal('quantity', 15, 6);
+            $table->unsignedDecimal('purchase_price', 15, 10);
             $table->dateTime('purchase_date');
             $table->boolean('sold')->default(0);
             $table->unsignedDecimal('selling_amount')->nullable();
-            $table->unsignedDecimal('selling_price')->nullable();
+            $table->unsignedDecimal('selling_price', 15, 10)->nullable();
             $table->dateTime('selling_date')->nullable();
         });
     }

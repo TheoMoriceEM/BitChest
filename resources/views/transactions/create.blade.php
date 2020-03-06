@@ -74,7 +74,7 @@
 
         function calcAndDisplayQuantity() {
             const quantityTotal = $('#amount').val() / currentRate;
-            $('#quantityTotal').text(quantityTotal.toFixed(4));
+            $('#quantityTotal').text(quantityTotal.toFixed(6));
         }
 
         function calcAndDisplayAmount() {
