@@ -14,7 +14,42 @@
     </div>
     <div class="row">
         <div class="col-12">
-
+            <table class="datatable custom">
+                <thead>
+                    <tr>
+                        <th>Quantité</th>
+                        <th>Cours à l'achat</th>
+                        <th>Total dépensé</th>
+                        <th>Cours actuel</th>
+                        <th>Total de vente potentiel</th>
+                        <th>Plus/Moins-value</th>
+                        <th>Date d'achat</th>
+                        <th data-orderable="false"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0.42</td>
+                        <td>8796.31 €</td>
+                        <td>4000 €</td>
+                        <td>7458.39 €</td>
+                        <td>3325.14 €</td>
+                        <td class="text-danger">-755.69 €</td>
+                        <td>20/11/2019 15:46</td>
+                        <td><a class="btn btn-sm btn-primary" href="#" role="button">Vendre</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+@endsection
+
+@section('JS')
+    <script>
+        $(function() {
+            $('.datatable.custom').DataTable({
+                order: [[5, "desc"]]
+            });
+        });
+    </script>
 @endsection
