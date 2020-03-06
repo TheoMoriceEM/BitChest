@@ -42,18 +42,20 @@ class WalletController extends Controller
                     ];
                 });
 
-        $this->data = $api->getMultipleData(implode(',', $this->api_ids)); // Get data from the API
+        if ($currencies->isNotEmpty()) {
+            $this->data = $api->getMultipleData(implode(',', $this->api_ids)); // Get data from the API
 
-        // Loop through currencies to add data from API
-        $currencies = $currencies->map(function ($currency) {
-            $api_id = $currency['currency']->api_id;
+            // Loop through currencies to add data from API
+            $currencies = $currencies->map(function ($currency) {
+                $api_id = $currency['currency']->api_id;
 
-            $currency['current_rate'] = $this->data[$api_id]['current_rate'];
-            $currency['change'] = $this->data[$api_id]['change'];
-            $currency['increase'] = round($currency['current_rate'] * $currency['total_quantity'] - $currency['total_amount'], 2); // Compare what the user spent to what they could get if they sold it all to calculate increase/decrease
+                $currency['current_rate'] = $this->data[$api_id]['current_rate'];
+                $currency['change'] = $this->data[$api_id]['change'];
+                $currency['increase'] = round($currency['current_rate'] * $currency['total_quantity'] - $currency['total_amount'], 2); // Compare what the user spent to what they could get if they sold it all to calculate increase/decrease
 
-            return $currency;
-        });
+                return $currency;
+            });
+        }
 
         return view('wallet.index', ['currencies' => $currencies]);
     }
