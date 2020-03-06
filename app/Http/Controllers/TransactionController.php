@@ -18,22 +18,13 @@ class TransactionController extends Controller
      */
     public function __construct()
     {
-        // Set timezone
-        date_default_timezone_set('Europe/Paris');
+        date_default_timezone_set('Europe/Paris'); // Set timezone
     }
 
     /**
-     * Display all of the user's transactions.
+     * Display the user's transactions (all of them or by currency).
      */
-    public function indexByUser($id)
-    {
-        //
-    }
-
-    /**
-     * Display the user's transactions corresponding to a currency.
-     */
-    public function indexByCurrency($user_id, $currency_id)
+    public function index($currency = null)
     {
         //
     }
