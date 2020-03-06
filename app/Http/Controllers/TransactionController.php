@@ -30,6 +30,16 @@ class TransactionController extends Controller
         $user = User::find(Auth::id());
         $transactions = $currency ? $user->transactions()->where('currency_id', $currency->id)->get() : $user->transactions;
 
+        $transactions = $transactions->map(function ($transaction) {
+            $carbon_purchase_date = new Carbon($transaction->purchase_date);
+            $transaction->purchase_date = $carbon_purchase_date->format('d/m/Y h:m');
+
+            $carbon_selling_date = new Carbon($transaction->selling_date);
+            $transaction->selling_date = $carbon_selling_date->format('d/m/Y h:m');
+
+            return $transaction;
+        });
+
         return view('transactions.index', ['transactions' => $transactions, 'currency' => $currency]);
     }
 
