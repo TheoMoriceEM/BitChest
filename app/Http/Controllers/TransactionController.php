@@ -27,7 +27,8 @@ class TransactionController extends Controller
      */
     public function index($currency = null)
     {
-        $transactions = User::find(Auth::id())->transactions;
+        $user = User::find(Auth::id());
+        $transactions = $currency ? $user->transactions()->where('currency_id', $currency)->get() : $user->transactions;
 
         return view('transactions.index', ['transactions' => $transactions]);
     }
