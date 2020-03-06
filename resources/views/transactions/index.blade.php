@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-center my-4">
                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('wallet') }}" role="button">Retour au portefeuille</a>
                 @if ($currency)
-                    <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Vendre</a>
+                    <a class="btn btn-sm btn-primary ml-3" href="{{ route('transactions.sell', $currency->id) }}" role="button">Vendre</a>
                 @endif
             </div>
         </div>

@@ -47,7 +47,7 @@
                                 @endif
                                     {{ $currency['increase'] }} {{ config('currency')['symbol'] }}</td>
                                 <td><a class="btn btn-sm btn-outline-secondary" href="{{ route('transactions.index', $currency['currency']->id) }}" role="button">Voir les transactions</a></td>
-                                <td><a class="btn btn-sm btn-primary" href="#" role="button">Vendre</a></td>
+                                <td><a class="btn btn-sm btn-primary" href="{{ route('transactions.sell', $currency['currency']->id) }}" role="button">Vendre</a></td>
                             </tr>
                         @endforeach
                     </tbody>

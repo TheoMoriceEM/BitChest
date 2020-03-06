@@ -36,9 +36,9 @@ class TransactionController extends Controller
     /**
      * Display the user's transactions corresponding to a currency in order to sell them.
      */
-    public function indexForSell($user_id, $currency_id)
+    public function indexForSell(Currency $currency)
     {
-        //
+        return view('transactions.indexForSell');
     }
 
     /**
