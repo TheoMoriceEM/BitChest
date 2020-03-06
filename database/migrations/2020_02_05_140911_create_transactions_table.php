@@ -22,11 +22,11 @@ class CreateTransactionsTable extends Migration
             $table->unsignedDecimal('amount')->default(0);
             $table->unsignedDecimal('quantity');
             $table->unsignedDecimal('purchase_price');
-            $table->timestamp('purchase_date');
+            $table->dateTime('purchase_date');
             $table->boolean('sold')->default(0);
             $table->unsignedDecimal('selling_amount')->nullable();
             $table->unsignedDecimal('selling_price')->nullable();
-            $table->timestamp('selling_date')->nullable();
+            $table->dateTime('selling_date')->nullable();
         });
     }
 
