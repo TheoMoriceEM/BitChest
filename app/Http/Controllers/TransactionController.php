@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Currency;
 use App\Transaction;
+use App\User;
 use App\API;
 
 class TransactionController extends Controller
@@ -26,7 +27,9 @@ class TransactionController extends Controller
      */
     public function index($currency = null)
     {
-        return view('transactions.index');
+        $transactions = User::find(Auth::id())->transactions;
+
+        return view('transactions.index', ['transactions' => $transactions]);
     }
 
     /**

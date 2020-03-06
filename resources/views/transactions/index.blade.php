@@ -29,7 +29,7 @@
 
             <div class="tab-content mt-4">
                 <div class="tab-pane active" id="all" role="tabpanel" aria-labelledby="all-tab">
-                    <table class="datatable">
+                    <table class="datatable custom">
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -46,38 +46,43 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><img src="{{ asset('storage/bitcoin.png') }}" alt="Logo Bitcoin" class="mr-3">Bitcoin</td>
-                                <td>BTC</td>
-                                <td>0.1487</td>
-                                <td>8796.21 €</td>
-                                <td>550 €</td>
-                                <td>15/02/2020 14:03</td>
-                                <td><span class="badge badge-success">Vendu</span></td>
-                                <td>7894.56 €</td>
-                                <td>478.45 €</td>
-                                <td class="text-danger">-71.55 €</td>
-                                <td>05/03/2020 18:46</td>
-                            </tr>
-                            <tr>
-                                <td><img src="{{ asset('storage/bitcoin.png') }}" alt="Logo Bitcoin" class="mr-3">Bitcoin</td>
-                                <td>BTC</td>
-                                <td>0.1487</td>
-                                <td>8796.21 €</td>
-                                <td>550 €</td>
-                                <td>15/02/2020 14:03</td>
-                                <td><span class="badge badge-danger">Non vendu</span></td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                            @foreach ($transactions as $transaction)
+                                <tr>
+                                    <td><img src="{{ asset($transaction->currency->logo) }}" alt="Logo {{ $transaction->currency->name }}" class="mr-3">{{ $transaction->currency->name }}</td>
+                                    <td>{{ $transaction->currency->api_id }}</td>
+                                    <td>{{ $transaction->quantity }}</td>
+                                    <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ $transaction->purchase_date }}</td>
+                                    @if ($transaction->sold)
+                                        <td><span class="badge badge-success">Vendu</span></td>
+                                        <td>{{ $transaction->selling_price }} {{ config('currency')['symbol'] }}</td>
+                                        <td>{{ $transaction->selling_amount }} {{ config('currency')['symbol'] }}</td>
+                                        @if ($transaction->selling_amount - $transaction->amount >= 0)
+                                            <td class="text-success">
+                                                {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                            </td>
+                                        @else
+                                            <td class="text-danger">
+                                                {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                            </td>
+                                        @endif
+                                        <td>{{ $transaction->selling_date }}</td>
+                                    @else
+                                        <td><span class="badge badge-danger">Non vendu</span></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    @endif
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
 
                 <div class="tab-pane" id="unsold" role="tabpanel" aria-labelledby="unsold-tab">
-                    <table class="datatable">
+                    <table class="datatable custom">
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -89,20 +94,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><img src="{{ asset('storage/bitcoin.png') }}" alt="Logo Bitcoin" class="mr-3">Bitcoin</td>
-                                <td>BTC</td>
-                                <td>0.1487</td>
-                                <td>8796.21 €</td>
-                                <td>550 €</td>
-                                <td>15/02/2020 14:03</td>
-                            </tr>
+                            @foreach ($transactions->where('sold', false) as $transaction)
+                                <tr>
+                                    <td><img src="{{ asset($transaction->currency->logo) }}" alt="Logo {{ $transaction->currency->name }}" class="mr-3">{{ $transaction->currency->name }}</td>
+                                    <td>{{ $transaction->currency->api_id }}</td>
+                                    <td>{{ $transaction->quantity }}</td>
+                                    <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ $transaction->purchase_date }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
 
                 <div class="tab-pane" id="sold" role="tabpanel" aria-labelledby="sold-tab">
-                    <table class="datatable">
+                    <table class="datatable custom">
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -118,18 +125,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><img src="{{ asset('storage/bitcoin.png') }}" alt="Logo Bitcoin" class="mr-3">Bitcoin</td>
-                                <td>BTC</td>
-                                <td>0.1487</td>
-                                <td>8796.21 €</td>
-                                <td>550 €</td>
-                                <td>15/02/2020 14:03</td>
-                                <td>7894.56 €</td>
-                                <td>478.45 €</td>
-                                <td class="text-danger">-71.55 €</td>
-                                <td>05/03/2020 18:46</td>
-                            </tr>
+                            @foreach ($transactions->where('sold', true) as $transaction)
+                                <tr>
+                                    <td><img src="{{ asset($transaction->currency->logo) }}" alt="Logo {{ $transaction->currency->name }}" class="mr-3">{{ $transaction->currency->name }}</td>
+                                    <td>{{ $transaction->currency->api_id }}</td>
+                                    <td>{{ $transaction->quantity }}</td>
+                                    <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ $transaction->purchase_date }}</td>
+                                    <td>{{ $transaction->selling_price }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ $transaction->selling_amount }} {{ config('currency')['symbol'] }}</td>
+                                    @if ($transaction->selling_amount - $transaction->amount >= 0)
+                                        <td class="text-success">
+                                            {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                        </td>
+                                    @else
+                                        <td class="text-danger">
+                                            {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                        </td>
+                                    @endif
+                                    <td>{{ $transaction->selling_date }}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -137,4 +154,14 @@
 
         </div>
     </div>
+@endsection
+
+@section('JS')
+    <script>
+        $(function() {
+            $('.datatable.custom').DataTable({
+                order: [[5, "desc"]]
+            });
+        });
+    </script>
 @endsection
