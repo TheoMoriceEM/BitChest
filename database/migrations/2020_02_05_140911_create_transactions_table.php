@@ -25,6 +25,7 @@ class CreateTransactionsTable extends Migration
             $table->timestamp('purchase_date');
             $table->boolean('sold')->default(0);
             $table->unsignedDecimal('selling_amount')->nullable();
+            $table->unsignedDecimal('selling_price')->nullable();
             $table->timestamp('selling_date')->nullable();
         });
     }
