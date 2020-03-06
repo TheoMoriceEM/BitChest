@@ -85,13 +85,9 @@
         function getAndDisplayCurrentRate() {
             // Get current rate from the API
             $.get({
-                url: 'https://min-api.cryptocompare.com/data/price',
-                data: {
-                    fsym: '{{ $currency->api_id }}',
-                    tsyms: '{{ config('currency')['api_id'] }}'
-                },
+                url: '{{ route('api.getPrice', $currency->api_id) }}',
                 success: function(data) {
-                    currentRate = data.EUR;
+                    currentRate = data;
 
                     // Refresh payment infos
                     calcAndDisplayQuantity();

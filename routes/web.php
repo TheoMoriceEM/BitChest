@@ -28,6 +28,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/wallet', 'WalletController@index')->name('wallet');
+
+    Route::get('apiGetPrice/{fsym}', function ($fsym) {
+        $api = new App\API;
+        return $api->getPrice($fsym);
+    })->name('api.getPrice');
 });
 
 Auth::routes();
