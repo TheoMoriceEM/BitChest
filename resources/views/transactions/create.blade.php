@@ -20,7 +20,7 @@
             <div class="alert alert-info" role="alert">
                 Cours actuel du {{ $currency->name }} :
                 <span class="font-weight-bold">
-                    <span id="currentRate"></span> €
+                    <span id="currentRate"></span> {{ config('currency')['symbol'] }}
                 </span>
                 <button type="button" id="refreshRate" class="btn btn-info text-white ml-2" data-toggle="tooltip" data-placement="top" title="Rafraîchir le cours actuel">
                     <i class="fas fa-sync"></i>
@@ -55,7 +55,7 @@
                     <small class="form-text text-muted">
                         Total à payer :
                         <span class="font-weight-bold">
-                            <span id="amountTotal"></span> €
+                            <span id="amountTotal"></span> {{ config('currency')['symbol'] }}
                         </span>
                     </small>
                 </div>
