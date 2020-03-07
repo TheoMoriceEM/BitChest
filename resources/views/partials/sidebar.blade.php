@@ -39,10 +39,12 @@
                 </li>
             </a>
         </ul>
-        <div>
-            <span class="text-capitalize">Mon solde : </span>
-            <span id="balance">1227,48 €</span>
-        </div>
+        @if (Auth::user()->status == 'client')
+            <div>
+                <span class="text-capitalize">Mon solde : </span>
+                <span id="balance">{{ session('balance') }} {{ config('currency')['symbol'] }}</span>
+            </div>
+        @endif
     </div>
     <div id="navBottom" class="d-flex justify-content-between">
         <a href="{{ route('logout') }}" class="flex-grow-1" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
