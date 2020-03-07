@@ -39,7 +39,7 @@
                                     <span class="badge badge-secondary">Client</span>
                                 @endif
                             </td>
-                            <td><a type="button" class="btn btn-primary" href="#">Modifier</a></td>
+                            <td><a type="button" class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">Modifier</a></td>
                             <td><a type="button" class="btn btn-danger" href="#">Supprimer</a></td>
                         </tr>
                     @endforeach

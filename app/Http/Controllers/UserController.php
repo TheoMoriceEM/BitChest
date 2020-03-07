@@ -68,9 +68,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -91,9 +91,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'email' => 'unique:App\User,email,' . $user->id . ',id' // Check if email hasn't already been taken (except by this user)
+        ]);
+
+        $user->update($request->all()); // Update the user in DB
+
+        return redirect()
+            ->route('users.index')
+            ->with('message', "L'utilisateur a bien été modifié.");
     }
 
     /**
