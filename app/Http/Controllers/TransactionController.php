@@ -44,13 +44,6 @@ class TransactionController extends Controller
 
         // Format a few fields of the transactions
         $transactions = $transactions->map(function ($transaction) {
-            // Format dates
-            $carbon_purchase_date = new Carbon($transaction->purchase_date);
-            $transaction->purchase_date = $carbon_purchase_date->format('d/m/Y h:m');
-
-            $carbon_selling_date = new Carbon($transaction->selling_date);
-            $transaction->selling_date = $carbon_selling_date->format('d/m/Y h:m');
-
             // Round figures to make them more readable
             $transaction->quantity = round($transaction->quantity, 4);
 
@@ -79,13 +72,7 @@ class TransactionController extends Controller
 
         // Format a few fields of the transactions
         $transactions = $transactions->map(function ($transaction) {
-            // Format dates
-            $carbon_purchase_date = new Carbon($transaction->purchase_date);
-            $transaction->purchase_date = $carbon_purchase_date->format('d/m/Y h:m');
-
-            // Round figures to make them more readable
-            $transaction->purchase_price = round($transaction->purchase_price, 4);
-
+            $transaction->purchase_price = round($transaction->purchase_price, 4); // Round figures to make them more readable
             return $transaction;
         });
 
