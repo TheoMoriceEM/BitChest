@@ -120,11 +120,9 @@ class TransactionController extends Controller
 
         $transaction = Transaction::create($attributes); // Create transaction in DB
 
-        // TODO: send back to wallet homepage
-        return redirect()->route('home');
-        // return redirect()
-        //     ->route('...')
-        //     ->with('message', 'La transaction a bien été effectuée. Vous avez acheté : ' . $transaction->quantity . ' ' . $transaction->currency->name . '.');
+        return redirect()
+            ->route('wallet')
+            ->with('message', 'La transaction a bien été effectuée. Vous avez acheté : ' . round($transaction->quantity, 6) . ' ' . $transaction->currency->name . ' pour un montant de ' . $transaction->amount . ' €.');
     }
 
     /**
