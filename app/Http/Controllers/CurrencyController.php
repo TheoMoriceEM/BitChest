@@ -9,6 +9,18 @@ use App\API;
 class CurrencyController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        view()->composer('layouts.layout', function ($view) {
+            $view->with('section', 'currencies');
+        });
+    }
+
+    /**
      * Display the currencies list with their current rate.
      */
     public function index(API $api)

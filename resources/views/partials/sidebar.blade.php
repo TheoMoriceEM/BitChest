@@ -11,25 +11,25 @@
         </a>
         <ul class="my-5 p-0">
             <a href="{{ route('currencies.index') }}">
-                <li class="sidebar-item d-flex align-items-center mb-2 active">
+                <li class="sidebar-item d-flex align-items-center mb-2 @if($section == 'currencies') active @endif">
                     <i class="fab fa-lg fa-bitcoin"></i>
                     <span class="text-capitalize ml-2">Les cryptomonnaies</span>
                 </li>
             </a>
             <a href="{{ route('wallet') }}">
-                <li class="sidebar-item d-flex align-items-center mb-2">
+                <li class="sidebar-item d-flex align-items-center mb-2 @if($section == 'wallet') active @endif">
                     <i class="fas fa-lg fa-wallet"></i>
                     <span class="text-capitalize ml-2">Mon portefeuille</span>
                 </li>
             </a>
             <a href="{{ route('users.index') }}">
-                <li class="sidebar-item d-flex align-items-center mb-2">
+                <li class="sidebar-item d-flex align-items-center mb-2 @if($section == 'users') active @endif">
                     <i class="fas fa-lg fa-users"></i>
                     <span class="text-capitalize ml-2">Les utilisateurs</span>
                 </li>
             </a>
             <a href="{{ route('users.editMyAccount') }}">
-                <li class="sidebar-item d-flex align-items-center mb-2">
+                <li class="sidebar-item d-flex align-items-center mb-2 @if($section == 'account') active @endif">
                     <i class="fas fa-lg fa-user-circle"></i>
                     <span class="text-capitalize ml-2">Mon compte</span>
                 </li>

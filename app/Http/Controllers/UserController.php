@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -11,6 +12,24 @@ use App\Transaction;
 
 class UserController extends Controller
 {
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+        if (Str::contains($request->path(), 'my-account')) {
+            view()->composer('layouts.layout', function ($view) {
+                $view->with('section', 'account');
+            });
+        } else {
+            view()->composer('layouts.layout', function ($view) {
+                $view->with('section', 'users');
+            });
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *

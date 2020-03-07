@@ -19,6 +19,10 @@ class WalletController extends Controller
      */
     public function __construct()
     {
+        view()->composer('layouts.layout', function ($view) {
+            $view->with('section', 'wallet');
+        });
+
         $this->api_ids = []; // Init an array for currencies' API IDs (for the API call)
     }
 
