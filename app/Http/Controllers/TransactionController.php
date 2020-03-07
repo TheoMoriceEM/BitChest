@@ -27,23 +27,27 @@ class TransactionController extends Controller
      */
     public function index(Currency $currency = null)
     {
-        $user = User::find(Auth::id());
-        $transactions = $currency
-            ? $user->transactions()->where('currency_id', $currency->id)->get()
-            : $user->transactions;
+        $user = User::find(Auth::id()); // Get logged in user
 
+        $transactions = $currency // If a currency is specified :
+            ? $user->transactions()->where('currency_id', $currency->id)->get() // Get the uder's transactions corresponding to this currency
+            : $user->transactions; // Else, get all of their transactions
+
+        // Format a few fields of the transactions
         $transactions = $transactions->map(function ($transaction) {
+            // Format dates
             $carbon_purchase_date = new Carbon($transaction->purchase_date);
             $transaction->purchase_date = $carbon_purchase_date->format('d/m/Y h:m');
 
             $carbon_selling_date = new Carbon($transaction->selling_date);
             $transaction->selling_date = $carbon_selling_date->format('d/m/Y h:m');
 
+            // Round figures to make them more readable
             $transaction->quantity = round($transaction->quantity, 4);
 
-            $transaction->purchase_price = round($transaction->purchase_price, 2);
+            $transaction->purchase_price = round($transaction->purchase_price, 4);
 
-            $transaction->selling_price = round($transaction->selling_price, 2);
+            $transaction->selling_price = round($transaction->selling_price, 4);
 
             return $transaction;
         });
@@ -56,18 +60,21 @@ class TransactionController extends Controller
      */
     public function indexForSell(Currency $currency)
     {
-        $transactions = User::find(Auth::id())
-            ->transactions()
-            ->where([
-                'sold' => false,
-                'currency_id' => $currency->id
+        $transactions = User::find(Auth::id()) // Logged in user
+            ->transactions() // Get his transactions
+            ->where([ // Filter by :
+                'sold' => false, // Unsold ones
+                'currency_id' => $currency->id // Corresponding to the specified currency
             ])
             ->get();
 
+        // Format a few fields of the transactions
         $transactions = $transactions->map(function ($transaction) {
+            // Format dates
             $carbon_purchase_date = new Carbon($transaction->purchase_date);
             $transaction->purchase_date = $carbon_purchase_date->format('d/m/Y h:m');
 
+            // Round figures to make them more readable
             $transaction->purchase_price = round($transaction->purchase_price, 4);
 
             return $transaction;

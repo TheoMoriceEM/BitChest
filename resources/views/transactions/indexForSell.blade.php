@@ -67,6 +67,7 @@
         const transactions = $('.transaction');
 
         function refreshTransactionInfo() {
+            // Loop through transactions to make calculations for all of them
             $.each(transactions, function (i, transaction) {
                 const sellingAmount = $(transaction).find('.quantity').text() * currentRate;
                 const increase = sellingAmount - parseInt($(transaction).find('.amount').text());
