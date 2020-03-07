@@ -128,7 +128,7 @@
         });
 
         // Confirm before form submitting
-        $("#buyingForm").on("submit", function () {
+        $("#buyingForm").submit(function () {
             return confirm("Confimer l'achat ?");
         });
     </script>

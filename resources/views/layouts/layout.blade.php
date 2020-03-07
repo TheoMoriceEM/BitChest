@@ -32,6 +32,10 @@
 
             <main id="content" class="my-3">
                 <div class="container-fluid">
+                    @if (Session::has('message') || Session::has('error'))
+                        @include('partials.flash-message')
+                    @endif
+
                     @yield('content')
                 </div>
             </main>

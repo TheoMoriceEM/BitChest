@@ -8,7 +8,11 @@
             <h1 class="text-center">Vendre du {{ $transactions->first()->currency->name }}</h1>
             <div class="d-flex justify-content-center my-4">
                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('wallet') }}" role="button">Retour au portefeuille</a>
-                <a class="btn btn-sm btn-primary ml-3" href="{{ route('transactions.update', $transactions->first()->currency->id) }}" role="button">Vendre tout</a>
+                <form class="selling-form" action="{{ route('transactions.update', $transactions->first()->currency->id) }}" method="POST">
+                    @method('PATCH')
+                    @csrf
+                    <input class="btn btn-sm btn-primary ml-3" role="button" type="submit" value="Vendre tout">
+                </form>
             </div>
         </div>
     </div>
@@ -45,13 +49,21 @@
                 <tbody>
                     @foreach ($transactions as $transaction)
                         <tr class="transaction">
-                            <td class="quantity">{{ $transaction->quantity }}</td>
+                            <td class="quantity">{{ $transaction->quantity + 0 }}</td>
                             <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
                             <td class="amount">{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
                             <td><span class="selling-amount"></span> {{ config('currency')['symbol'] }}</td>
                             <td class="increase-col"><span class="increase"></span> {{ config('currency')['symbol'] }}</td>
                             <td>{{ $transaction->purchase_date }}</td>
-                            <td><a class="btn btn-sm btn-primary" href="{{ route('transactions.update', [$transactions->first()->currency->id, $transaction->id]) }}" role="button">Vendre</a></td>
+                            <td>
+                                <form class="selling-form" action="{{ route('transactions.update', [$transactions->first()->currency->id, $transaction->id]) }}" method="POST">
+                                    @method('PATCH')
+                                    @csrf
+                                    <input type="hidden" name="selling_amount" value="">
+                                    <input type="hidden" name="selling_price" value="">
+                                    <input class="btn btn-sm btn-primary" role="button" type="submit" value="Vendre">
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -80,6 +92,10 @@
                 } else {
                     $(transaction).find('.increase-col').addClass('text-danger');
                 }
+
+                // Set hidden inputs values for having these values when we sell
+                $('input[name="selling_amount"]').val(sellingAmount);
+                $('input[name="selling_price"]').val(currentRate);
             });
         }
 
@@ -113,6 +129,11 @@
             $('#refreshRate').click(function() {
                 refreshIcon.addClass('fa-spin'); // Make the icon spin during the request
                 getAndDisplayCurrentRate(); // Refresh payment info
+            });
+
+            // Confirm before form submitting
+            $(".selling-form").submit(function () {
+                return confirm("Confimer la vente ?");
             });
         });
     </script>

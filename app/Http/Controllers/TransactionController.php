@@ -132,8 +132,45 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Currency $currency, Transaction $transaction = null)
+    public function update(Currency $currency, Transaction $transaction = null, Request $request, API $api)
     {
-        //
+        if ($transaction) {
+            $transaction->sold = 1;
+            $transaction->selling_amount = round($request->selling_amount, 2);
+            $transaction->selling_price = $request->selling_price;
+            $transaction->selling_date = Carbon::now();
+
+            $transaction->save();
+
+            return redirect()
+                ->route('wallet')
+                ->with('message', 'La transaction a bien été effectuée. Vous avez vendu : ' . floatval($transaction->quantity) . ' ' . $currency->name . ' pour un montant de ' . round($request->selling_amount, 2) . ' €.');
+        } else {
+            $quantity_total = 0;
+            $selling_amount_total = 0;
+
+            $transactions = Transaction::where([
+                'currency_id' => $currency->id,
+                'user_id' => Auth::id()
+            ]);
+
+            $transactions->update([
+                'sold' => 1,
+                'selling_price' => $api->getPrice($currency->api_id),
+                'selling_date' => Carbon::now()
+            ]);
+
+            foreach ($transactions->get() as $transaction) {
+                $transaction->selling_amount = $transaction->selling_price * $transaction->quantity;
+                $transaction->save();
+
+                $quantity_total += $transaction->quantity;
+                $selling_amount_total += $transaction->selling_amount;
+            }
+
+            return redirect()
+                ->route('wallet')
+                ->with('message', 'La transaction a bien été effectuée. Vous avez vendu : ' . floatval($quantity_total) . ' ' . $currency->name . ' pour un montant de ' . round($selling_amount_total, 2) . ' €.');
+        }
     }
 }
