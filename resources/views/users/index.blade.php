@@ -7,7 +7,7 @@
         <div class="col-12">
             <h1 class="text-center">Liste des utilisateurs</h1>
             <div class="d-flex justify-content-center my-4">
-                <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Ajouter un utilisateur</a>
+                <a class="btn btn-sm btn-primary ml-3" href="{{ route('users.create') }}" role="button">Ajouter un utilisateur</a>
             </div>
         </div>
     </div>
