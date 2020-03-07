@@ -31,11 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', 'UserController@index')->name('index');
         Route::get('/create', 'UserController@create')->name('create');
-        Route::post('/', 'UserController@store')->name('store');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit');
         Route::get('/my-account', 'UserController@editMyAccount')->name('editMyAccount');
+        Route::post('/', 'UserController@store')->name('store');
         Route::patch('/{user}', 'UserController@update')->name('update');
-        Route::patch('/{user}', 'UserController@updateMyAccount')->name('updateMyAccount');
+        Route::patch('/my-account/{user}', 'UserController@updateMyAccount')->name('updateMyAccount');
         Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     });
 
