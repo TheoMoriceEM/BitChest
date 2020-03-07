@@ -22,7 +22,7 @@
                     <span class="text-capitalize ml-2">Mon portefeuille</span>
                 </li>
             </a>
-            <a href="#">
+            <a href="{{ route('users.index') }}">
                 <li class="sidebar-item d-flex align-items-center mb-2">
                     <i class="fas fa-lg fa-users"></i>
                     <span class="text-capitalize ml-2">Les clients</span>

@@ -28,6 +28,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/{currency}/{transaction?}', 'TransactionController@update')->name('update');
     });
 
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::get('/', 'UserController@index')->name('index');
+    });
+
     Route::get('/wallet', 'WalletController@index')->name('wallet');
 
     Route::get('apiGetPrice/{fsym}', function ($fsym) {
