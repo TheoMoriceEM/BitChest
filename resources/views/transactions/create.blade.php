@@ -110,26 +110,35 @@
         // On page load
         $(function() {
             getAndDisplayCurrentRate();
-        });
 
-        // On click on refresh button
-        $('#refreshRate').click(function() {
-            refreshIcon.addClass('fa-spin'); // Make the icon spin during the request
-            getAndDisplayCurrentRate(); // Refresh payment info
-        });
+            // On click on refresh button
+            $('#refreshRate').click(function() {
+                refreshIcon.addClass('fa-spin'); // Make the icon spin during the request
+                getAndDisplayCurrentRate(); // Refresh payment info
+            });
 
-        // When the user types in an input
-        $('input[type="number"]').on('input', function() {
-            if ($(this).is('#amount')) {
-                calcAndDisplayQuantity();
-            } else if ($(this).is('#quantity')) {
-                calcAndDisplayAmount();
-            }
-        });
+            // Display and hide inputs
+            $('.buying_options').change(function() {
+                const input = $(this).val();
+                $(`.buying-inputs#${input}`).show();
+                $(`.buying-inputs#${input} input[type="number"]`).attr('required', 'required');
+                $(`.buying-inputs:not(#${input})`).hide();
+                $(`.buying-inputs:not(#${input}) input[type="number"]`).removeAttr('required');
+            });
 
-        // Confirm before form submitting
-        $("#buyingForm").submit(function () {
-            return confirm("Confimer l'achat ?");
+            // When the user types in an input
+            $('input[type="number"]').on('input', function() {
+                if ($(this).is('#amount')) {
+                    calcAndDisplayQuantity();
+                } else if ($(this).is('#quantity')) {
+                    calcAndDisplayAmount();
+                }
+            });
+
+            // Confirm before form submitting
+            $("#buyingForm").submit(function () {
+                return confirm("Confimer l'achat ?");
+            });
         });
     </script>
 @endsection
