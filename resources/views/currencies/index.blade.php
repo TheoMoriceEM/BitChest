@@ -16,8 +16,10 @@
                         <th>Nom</th>
                         <th>Identifiant</th>
                         <th>Cours actuel</th>
-                        <th data-orderable="false"></th>
-                        <th data-orderable="false"></th>
+                        @if (Auth::user()->status == 'client')
+                            <th data-orderable="false"></th>
+                            <th data-orderable="false"></th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -33,8 +35,10 @@
                                     <i class="change-caret-down fas fa-2x fa-caret-down ml-2"></i>
                                 @endif
                             </td>
-                            <td><a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.show', $currency->id) }}" role="button">Historique</a></td>
-                            <td><a class="btn btn-sm btn-primary" href="{{ route('transactions.create', $currency->id) }}" role="button">Acheter</a></td>
+                            @if (Auth::user()->status == 'client')
+                                <td><a class="btn btn-sm btn-outline-secondary" href="{{ route('currencies.show', $currency->id) }}" role="button">Historique</a></td>
+                                <td><a class="btn btn-sm btn-primary" href="{{ route('transactions.create', $currency->id) }}" role="button">Acheter</a></td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
