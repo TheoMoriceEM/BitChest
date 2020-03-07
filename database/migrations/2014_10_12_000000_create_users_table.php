@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('first_name', 100);
             $table->string('last_name', 100);
             $table->enum('status', ['admin', 'client']);
-            $table->unsignedDecimal('balance')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
