@@ -19,7 +19,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('users.updateMyAccount', $user->id) }}" method="POST">
+            <form action="{{ route('account.update', $user->id) }}" method="POST">
                 @method('PATCH')
                 @csrf
 

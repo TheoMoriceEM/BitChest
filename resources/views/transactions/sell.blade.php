@@ -102,7 +102,7 @@
         function getAndDisplayCurrentRate() {
             // Get current rate from the API
             $.get({
-                url: '{{ route('api.getPrice', $transactions->first()->currency->api_id) }}',
+                url: '{{ route('api.get-price', $transactions->first()->currency->api_id) }}',
                 success: function(data) {
                     currentRate = data;
                     refreshTransactionInfo(); // Refresh payment infos

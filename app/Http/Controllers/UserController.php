@@ -99,7 +99,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editMyAccount()
+    public function editAccount()
     {
         return view('users.my-account', ['user' => Auth::user()]);
     }
@@ -131,7 +131,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateMyAccount(Request $request, User $user)
+    public function updateAccount(Request $request, User $user)
     {
         $request->validate([
             'email' => 'unique:App\User,email,' . $user->id . ',id' // Check if email hasn't already been taken (except by this user)

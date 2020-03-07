@@ -32,7 +32,7 @@
                     </li>
                 </a>
             @endif
-            <a href="{{ route('users.editMyAccount') }}">
+            <a href="{{ route('account.edit') }}">
                 <li class="sidebar-item d-flex align-items-center mb-2 @if($section == 'account') active @endif">
                     <i class="fas fa-lg fa-user-circle"></i>
                     <span class="text-capitalize ml-2">Mon compte</span>

@@ -21,33 +21,28 @@ Route::middleware('auth', 'balance')->group(function () {
     });
 
     Route::middleware('client')->prefix('transactions')->name('transactions.')->group(function () {
+        Route::get('/{currency?}', 'TransactionController@index')->name('index');
         Route::get('/create/{currency}', 'TransactionController@create')->name('create');
         Route::post('/', 'TransactionController@store')->name('store');
-        Route::get('/{currency?}', 'TransactionController@index')->name('index');
-        Route::get('/sell/{currency}', 'TransactionController@sell')->name('sell');
         Route::patch('/{currency}/{transaction?}', 'TransactionController@update')->name('update');
+        Route::get('/sell/{currency}', 'TransactionController@sell')->name('sell');
     });
 
-    Route::prefix('users')->name('users.')->group(function () {
-        Route::middleware('admin')->group(function () {
-            Route::get('/', 'UserController@index')->name('index');
-            Route::get('/create', 'UserController@create')->name('create');
-            Route::get('/{user}/edit', 'UserController@edit')->name('edit');
-            Route::post('/', 'UserController@store')->name('store');
-            Route::patch('/{user}', 'UserController@update')->name('update');
-            Route::delete('/{user}', 'UserController@destroy')->name('destroy');
-        });
+    Route::middleware('admin')->resource('users', 'UserController')->except(['show']);
 
-        Route::get('/my-account', 'UserController@editMyAccount')->name('editMyAccount');
-        Route::patch('/my-account/{user}', 'UserController@updateMyAccount')->name('updateMyAccount');
+    Route::prefix('account')->name('account.')->group(function () {
+        Route::get('/edit', 'UserController@editAccount')->name('edit');
+        Route::patch('/{user}', 'UserController@updateAccount')->name('update');
     });
 
     Route::middleware('client')->get('/wallet', 'WalletController@index')->name('wallet');
 });
 
-Route::get('apiGetPrice/{fsym}', function ($fsym) {
-    $api = new App\API;
-    return $api->getPrice($fsym);
-})->name('api.getPrice');
+Route::prefix('api')->name('api.')->group(function () {
+    Route::get('/get-price/{fsym}', function ($fsym) {
+        $api = new App\API;
+        return $api->getPrice($fsym);
+    })->name('get-price');
+});
 
 Auth::routes();
