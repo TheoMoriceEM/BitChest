@@ -28,7 +28,7 @@
                     <span class="text-capitalize ml-2">Les utilisateurs</span>
                 </li>
             </a>
-            <a href="#">
+            <a href="{{ route('users.editMyAccount') }}">
                 <li class="sidebar-item d-flex align-items-center mb-2">
                     <i class="fas fa-lg fa-user-circle"></i>
                     <span class="text-capitalize ml-2">Mon compte</span>

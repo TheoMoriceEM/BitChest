@@ -80,9 +80,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editMyAccount($id)
+    public function editMyAccount()
     {
-        //
+        $user = User::find(Auth::id());
+
+        return view('users.my-account', ['user' => $user]);
     }
 
     /**
@@ -103,6 +105,26 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->with('message', "L'utilisateur a bien été modifié.");
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateMyAccount(Request $request, User $user)
+    {
+        $request->validate([
+            'email' => 'unique:App\User,email,' . $user->id . ',id' // Check if email hasn't already been taken (except by this user)
+        ]);
+
+        $user->update($request->all()); // Update the user in DB
+
+        return redirect()
+            ->route('home')
+            ->with('message', "Vos informations personnelles ont bien été modifiées.");
     }
 
     /**

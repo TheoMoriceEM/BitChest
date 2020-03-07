@@ -33,7 +33,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', 'UserController@create')->name('create');
         Route::post('/', 'UserController@store')->name('store');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit');
+        Route::get('/my-account', 'UserController@editMyAccount')->name('editMyAccount');
         Route::patch('/{user}', 'UserController@update')->name('update');
+        Route::patch('/{user}', 'UserController@updateMyAccount')->name('updateMyAccount');
         Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     });
 
