@@ -24,7 +24,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/create/{currency}', 'TransactionController@create')->name('create');
         Route::post('/', 'TransactionController@store')->name('store');
         Route::get('/{currency?}', 'TransactionController@index')->name('index');
-        Route::get('/sell/{currency}', 'TransactionController@indexForSell')->name('sell');
+        Route::get('/sell/{currency}', 'TransactionController@sell')->name('sell');
+        Route::patch('/{currency}/{transaction?}', 'TransactionController@update')->name('update');
     });
 
     Route::get('/wallet', 'WalletController@index')->name('wallet');

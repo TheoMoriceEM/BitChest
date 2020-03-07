@@ -58,7 +58,7 @@ class TransactionController extends Controller
     /**
      * Display the user's transactions corresponding to a currency in order to sell them.
      */
-    public function indexForSell(Currency $currency)
+    public function sell(Currency $currency)
     {
         $transactions = User::find(Auth::id()) // Logged in user
             ->transactions() // Get his transactions
@@ -80,7 +80,9 @@ class TransactionController extends Controller
             return $transaction;
         });
 
-        return view('transactions.indexForSell', ['transactions' => $transactions]);
+        $title = 'Vente de ' . $currency->name;
+
+        return view('transactions.sell', ['transactions' => $transactions, 'title' => $title]);
     }
 
     /**
@@ -126,25 +128,11 @@ class TransactionController extends Controller
     }
 
     /**
-     * Sell a currency.
+     * Sell one specified transaction or all those of a currency.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Sell all the user's stock of a currency.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateAll(Request $request, $currency_id)
+    public function update(Currency $currency, Transaction $transaction = null)
     {
         //
     }

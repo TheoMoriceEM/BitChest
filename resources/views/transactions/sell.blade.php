@@ -1,14 +1,14 @@
 @extends('layouts.layout')
 
-@section('title', 'Vente de Bitcoin')
+@section('title', $title)
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <h1 class="text-center">Vendre du Bitcoin</h1>
+            <h1 class="text-center">Vendre du {{ $transactions->first()->currency->name }}</h1>
             <div class="d-flex justify-content-center my-4">
                 <a class="btn btn-sm btn-outline-secondary" href="{{ route('wallet') }}" role="button">Retour au portefeuille</a>
-                <a class="btn btn-sm btn-primary ml-3" href="#" role="button">Vendre tout</a>
+                <a class="btn btn-sm btn-primary ml-3" href="{{ route('transactions.update', $transactions->first()->currency->id) }}" role="button">Vendre tout</a>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
                 <span class="font-weight-bold">Attention :</span> toutes les informations de paiement sont calculées par rapport au cours de la monnaie au moment où vous êtes arrivé(e) sur cette page. Pour actualiser ces informations en fonction du cours le plus récent, cliquez sur le bouton <span class="font-weight-bold">"Rafraîchir le cours actuel"</span> ci-dessous.
             </div>
             <div class="alert alert-info" role="alert">
-                Cours actuel du Bitcoin :
+                Cours actuel du {{ $transactions->first()->currency->name }} :
                 <span class="font-weight-bold">
                     <span id="currentRate"></span> {{ config('currency')['symbol'] }}
                 </span>
@@ -51,7 +51,7 @@
                             <td><span class="selling-amount"></span> {{ config('currency')['symbol'] }}</td>
                             <td class="increase-col"><span class="increase"></span> {{ config('currency')['symbol'] }}</td>
                             <td>{{ $transaction->purchase_date }}</td>
-                            <td><a class="btn btn-sm btn-primary" href="#" role="button">Vendre</a></td>
+                            <td><a class="btn btn-sm btn-primary" href="{{ route('transactions.update', [$transactions->first()->currency->id, $transaction->id]) }}" role="button">Vendre</a></td>
                         </tr>
                     @endforeach
                 </tbody>
