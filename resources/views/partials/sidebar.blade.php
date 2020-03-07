@@ -3,7 +3,7 @@
         <i class="fas fa-lg fa-bars"></i>
     </div>
     <div id="navTop">
-        <a href="#">
+        <a href="{{ route('home') }}">
             <div class="d-flex justify-content-center align-items-center flex-wrap border-bottom pb-5">
                 <i class="far fa-money-bill-alt fa-3x" id="logoIcon"></i>
                 <span class="ml-2" id="logotype">BitChest</span>
@@ -41,12 +41,15 @@
         </div>
     </div>
     <div id="navBottom" class="d-flex justify-content-between">
-        <a href="#" class="flex-grow-1">
+        <a href="{{ route('logout') }}" class="flex-grow-1" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <div class="sidebar-item d-flex align-items-center">
                 <i class="fas fa-lg fa-sign-out-alt"></i>
                 <span class="text-capitalize ml-2">Déconnexion</span>
             </div>
         </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
         <div class="sidebar-item align-items-center justify-content-end flex-grow-1" id="closeNav">
             <i class="fas fa-lg fa-times-circle"></i>
             <span class="text-capitalize ml-2">Fermer</span>
