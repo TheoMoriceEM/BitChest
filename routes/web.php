@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', 'UserController@store')->name('store');
         Route::get('/{user}/edit', 'UserController@edit')->name('edit');
         Route::patch('/{user}', 'UserController@update')->name('update');
+        Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     });
 
     Route::get('/wallet', 'WalletController@index')->name('wallet');

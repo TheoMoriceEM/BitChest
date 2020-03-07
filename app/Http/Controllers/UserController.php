@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\User;
+use App\Transaction;
 
 class UserController extends Controller
 {
@@ -110,8 +111,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        Transaction::where('user_id', $user->id)->delete(); // Delete user's transactions
+
+        $user->delete(); // Delete user
+
+        return redirect()
+            ->route('users.index')
+            ->with('message', "L'utilisateur a bien été supprimé.");
     }
 }

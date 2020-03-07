@@ -23,7 +23,7 @@
                 </div>
             @endif
             <form action="{{ route('users.update', $user->id) }}" method="POST">
-                @method('patch')
+                @method('PATCH')
                 @csrf
 
                 <div class="form-group row">

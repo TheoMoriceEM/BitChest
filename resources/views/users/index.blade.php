@@ -39,8 +39,14 @@
                                     <span class="badge badge-secondary">Client</span>
                                 @endif
                             </td>
-                            <td><a type="button" class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">Modifier</a></td>
-                            <td><a type="button" class="btn btn-danger" href="#">Supprimer</a></td>
+                            <td><a type="button" class="btn btn-sm btn-primary" href="{{ route('users.edit', $user->id) }}">Modifier</a></td>
+                            <td>
+                                <form class="delete-form" action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input class="btn btn-sm btn-danger ml-3" role="button" type="submit" value="Supprimer">
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -57,6 +63,11 @@
                 language: {
                     url: "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
                 }
+            });
+
+            // Confirm before form submitting
+            $(".delete-form").submit(function () {
+                return confirm("Confimer la suppression ?");
             });
         });
     </script>
