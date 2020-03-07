@@ -38,11 +38,9 @@ class TransactionController extends Controller
      */
     public function index(Currency $currency = null)
     {
-        $user = User::find(Auth::id()); // Get logged in user
-
         $transactions = $currency // If a currency is specified :
-            ? $user->transactions()->where('currency_id', $currency->id)->get() // Get the uder's transactions corresponding to this currency
-            : $user->transactions; // Else, get all of their transactions
+            ? Auth::user()->transactions()->where('currency_id', $currency->id)->get() // Get the uder's transactions corresponding to this currency
+            : Auth::user()->transactions; // Else, get all of their transactions
 
         // Format a few fields of the transactions
         $transactions = $transactions->map(function ($transaction) {
@@ -71,7 +69,7 @@ class TransactionController extends Controller
      */
     public function sell(Currency $currency)
     {
-        $transactions = User::find(Auth::id()) // Logged in user
+        $transactions = Auth::user() // Logged in user
             ->transactions() // Get his transactions
             ->where([ // Filter by :
                 'sold' => false, // Unsold ones

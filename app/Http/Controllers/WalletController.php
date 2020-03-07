@@ -31,9 +31,7 @@ class WalletController extends Controller
      */
     public function index(API $api)
     {
-        $user = User::find(Auth::id()); // Get logged in user
-
-        $currencies = $user
+        $currencies = Auth::user()
             ->transactions // Get user's transactions
             ->where('sold', 0) // Unsold
             ->groupBy('currency_id') // Group them by currency
