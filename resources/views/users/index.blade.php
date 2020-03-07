@@ -26,15 +26,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Morice</td>
-                        <td>Théo</td>
-                        <td>theo.morice5@gmail.com</td>
-                        <td>27/12/2018</td>
-                        <td><span class="badge badge-primary">Administrateur</span></td>
-                        <td><a type="button" class="btn btn-primary" href="#">Modifier</a></td>
-                        <td><a type="button" class="btn btn-danger" href="#">Supprimer</a></td>
-                    </tr>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user->last_name }}</td>
+                            <td>{{ $user->first_name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->subscription_date }}</td>
+                            <td>
+                                @if ($user->status == 'admin')
+                                    <span class="badge badge-primary">Administrateur</span>
+                                @elseif ($user->status == 'client')
+                                    <span class="badge badge-secondary">Client</span>
+                                @endif
+                            </td>
+                            <td><a type="button" class="btn btn-primary" href="#">Modifier</a></td>
+                            <td><a type="button" class="btn btn-danger" href="#">Supprimer</a></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -45,7 +53,7 @@
     <script>
         $(function() {
             $('.datatable.custom').DataTable({
-                order: [[3, "asc"]],
+                order: [[3, "desc"]],
                 language: {
                     url: "https://cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
                 }

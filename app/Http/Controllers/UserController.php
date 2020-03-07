@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\User;
 
 class UserController extends Controller
 {
@@ -13,7 +16,16 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index');
+        $users = User::all()->except(Auth::id());
+
+
+        $users = $users->map(function ($user) {
+            $carbon_date = new Carbon($user->created_at);
+            $user->subscription_date = $carbon_date->format('d/m/Y h:m');
+            return $user;
+        });
+
+        return view('users.index', ['users' => $users]);
     }
 
     /**
