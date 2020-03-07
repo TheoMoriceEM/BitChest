@@ -24,6 +24,12 @@
             </a>
             <a href="#">
                 <li class="sidebar-item d-flex align-items-center mb-2">
+                    <i class="fas fa-lg fa-users"></i>
+                    <span class="text-capitalize ml-2">Les clients</span>
+                </li>
+            </a>
+            <a href="#">
+                <li class="sidebar-item d-flex align-items-center mb-2">
                     <i class="fas fa-lg fa-user-circle"></i>
                     <span class="text-capitalize ml-2">Mon compte</span>
                 </li>
