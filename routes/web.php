@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('users')->name('users.')->group(function () {
         Route::get('/', 'UserController@index')->name('index');
         Route::get('/create', 'UserController@create')->name('create');
+        Route::post('/', 'UserController@store')->name('store');
     });
 
     Route::get('/wallet', 'WalletController@index')->name('wallet');

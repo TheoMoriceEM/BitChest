@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use App\User;
 
@@ -16,9 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->except(Auth::id());
+        $users = User::all()->except(Auth::id()); // Get all users except the logged one
 
-
+        // Format subscription date
         $users = $users->map(function ($user) {
             $carbon_date = new Carbon($user->created_at);
             $user->subscription_date = $carbon_date->format('d/m/Y h:m');
@@ -46,7 +47,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email'     => 'unique:App\User,email', // Check if email hasn't already been taken
+            'password'  => 'confirmed' // Check if password is correctly confirmed
+        ]);
+
+        $attributes = $request->all();
+        $attributes['password'] = Hash::make($request->password); // Hash password
+
+        User::create($attributes); // Create the user in DB
+
+        return redirect()
+            ->route('users.index')
+            ->with('message', "L'utilisateur a bien été créé.");
     }
 
     /**
