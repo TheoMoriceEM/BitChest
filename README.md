@@ -1,5 +1,5 @@
 # BitChest
-Projet final de développement web pour L'École Multimédia
+### Projet final de développement web pour L'École Multimédia
 
 Adresse du projet GitHub : https://github.com/TheoMoriceEM/BitChest
 
@@ -10,9 +10,9 @@ Le MCD est situé à la racine du projet sous format mwb (MySQL WorkBench). Pour
 1. Créez une base de données sur votre serveur.
 2. Copiez le fichier .env.example et renommez-le en .env.
 3. Remplissez-le comme suit :
-..* APP_NAME=BitChest
-..* APP_URL='votre chemin vers le dossier public'
-..* Dans la partie DB, saisissez les informations de connexion à votre base de données.
+    * APP_NAME=BitChest
+    * APP_URL='votre chemin vers le dossier public'
+    * Dans la partie DB, saisissez les informations de connexion à votre base de données.
 4. Saisissez la commande "composer install" pour installer les dépendances de Composer.
 5. Saisissez la commande "php artisan key:generate" pour générer une clé d'application.
 6. Saisissez la commande "php artisan migrate --seed" pour lancer les migrations et seeders pour peupler votre base de données.
