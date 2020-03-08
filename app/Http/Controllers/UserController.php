@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function __construct(Request $request)
     {
-        if (Str::contains($request->path(), 'my-account')) {
+        if (Str::contains($request->path(), 'account')) {
             view()->composer('layouts.layout', function ($view) {
                 $view->with('section', 'account');
             });
@@ -101,7 +101,7 @@ class UserController extends Controller
      */
     public function editAccount()
     {
-        return view('users.my-account', ['user' => Auth::user()]);
+        return view('account.edit', ['user' => Auth::user()]);
     }
 
     /**
