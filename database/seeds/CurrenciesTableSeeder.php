@@ -15,7 +15,7 @@ class CurrenciesTableSeeder extends Seeder
         foreach (config('cryptocurrencies_list') as $api_id => $name) {
             DB::table('currencies')->insert([
                 'name'      => $name,
-                'logo'      => 'storage/' . Str::kebab($name) . '.png',
+                'logo'      => 'img/' . Str::kebab($name) . '.png',
                 'api_id'    => $api_id
             ]);
         }
