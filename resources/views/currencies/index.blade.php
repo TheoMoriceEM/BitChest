@@ -28,7 +28,7 @@
                             <td><img src="{{ asset($currency->logo) }}" alt="Logo {{ $currency->name }}" class="mr-3">{{ $currency->name }}</td>
                             <td>{{ $currency->api_id }}</td>
                             <td class="d-flex align-items-center">
-                                {{ $currency->current_rate }} {{ config('currency')['symbol'] }}
+                                {{ str_replace('.', ',', $currency->current_rate) }} {{ config('currency')['symbol'] }}
                                 @if ($currency->change == '+')
                                     <i class="change-caret-up fas fa-2x fa-caret-up ml-2"></i>
                                 @else

@@ -50,8 +50,8 @@
                     @foreach ($transactions as $transaction)
                         <tr class="transaction">
                             <td class="quantity">{{ $transaction->quantity + 0 }}</td>
-                            <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
-                            <td class="amount">{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
+                            <td>{{ str_replace('.', ',', $transaction->purchase_price) }} {{ config('currency')['symbol'] }}</td>
+                            <td class="amount">{{ str_replace('.', ',', $transaction->amount) }} {{ config('currency')['symbol'] }}</td>
                             <td><span class="selling-amount"></span> {{ config('currency')['symbol'] }}</td>
                             <td class="increase-col"><span class="increase"></span> {{ config('currency')['symbol'] }}</td>
                             <td>{{ $transaction->purchase_date }}</td>

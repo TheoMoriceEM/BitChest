@@ -31,9 +31,9 @@
                             <tr>
                                 <td><img src="{{ asset($currency['currency']->logo) }}" alt="Logo {{ $currency['currency']->name }}" class="mr-3">{{ $currency['currency']->name }}</td>
                                 <td>{{ $currency['currency']->api_id }}</td>
-                                <td>{{ $currency['total_quantity'] }}</td>
+                                <td>{{ str_replace('.', ',', $currency['total_quantity']) }}</td>
                                 <td class="d-flex align-items-center">
-                                    {{ $currency['current_rate'] }} {{ config('currency')['symbol'] }}
+                                    {{ str_replace('.', ',', $currency['current_rate']) }} {{ config('currency')['symbol'] }}
                                     @if ($currency['change'] == '+')
                                         <i class="change-caret-up fas fa-2x fa-caret-up ml-2"></i>
                                     @else
@@ -45,7 +45,7 @@
                                 @else
                                     <td class="text-danger">
                                 @endif
-                                    {{ $currency['increase'] }} {{ config('currency')['symbol'] }}</td>
+                                    {{ str_replace('.', ',', $currency['increase']) }} {{ config('currency')['symbol'] }}</td>
                                 <td><a class="btn btn-sm btn-outline-secondary" href="{{ route('transactions.index', $currency['currency']->id) }}" role="button">Voir les transactions</a></td>
                                 <td><a class="btn btn-sm btn-primary" href="{{ route('transactions.sell', $currency['currency']->id) }}" role="button">Vendre</a></td>
                             </tr>

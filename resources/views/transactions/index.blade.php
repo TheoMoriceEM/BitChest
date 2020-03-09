@@ -53,20 +53,20 @@
                                     <td><img src="{{ asset($transaction->currency->logo) }}" alt="Logo {{ $transaction->currency->name }}" class="mr-3">{{ $transaction->currency->name }}</td>
                                     <td>{{ $transaction->currency->api_id }}</td>
                                     <td>{{ $transaction->quantity }}</td>
-                                    <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
-                                    <td>{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->purchase_price) }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->amount) }} {{ config('currency')['symbol'] }}</td>
                                     <td>{{ $transaction->purchase_date }}</td>
                                     @if ($transaction->sold)
                                         <td><span class="badge badge-success">Vendu</span></td>
-                                        <td>{{ $transaction->selling_price }} {{ config('currency')['symbol'] }}</td>
-                                        <td>{{ $transaction->selling_amount }} {{ config('currency')['symbol'] }}</td>
+                                        <td>{{ str_replace('.', ',', $transaction->selling_price) }} {{ config('currency')['symbol'] }}</td>
+                                        <td>{{ str_replace('.', ',', $transaction->selling_amount) }} {{ config('currency')['symbol'] }}</td>
                                         @if ($transaction->selling_amount - $transaction->amount >= 0)
                                             <td class="text-success">
-                                                {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                                {{ str_replace('.', ',', $transaction->selling_amount - $transaction->amount) }} {{ config('currency')['symbol'] }}
                                             </td>
                                         @else
                                             <td class="text-danger">
-                                                {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                                {{ str_replace('.', ',', $transaction->selling_amount - $transaction->amount) }} {{ config('currency')['symbol'] }}
                                             </td>
                                         @endif
                                         <td>{{ $transaction->selling_date }}</td>
@@ -100,9 +100,9 @@
                                 <tr>
                                     <td><img src="{{ asset($transaction->currency->logo) }}" alt="Logo {{ $transaction->currency->name }}" class="mr-3">{{ $transaction->currency->name }}</td>
                                     <td>{{ $transaction->currency->api_id }}</td>
-                                    <td>{{ $transaction->quantity }}</td>
-                                    <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
-                                    <td>{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->quantity) }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->purchase_price) }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->amount) }} {{ config('currency')['symbol'] }}</td>
                                     <td>{{ $transaction->purchase_date }}</td>
                                 </tr>
                             @endforeach
@@ -132,18 +132,18 @@
                                     <td><img src="{{ asset($transaction->currency->logo) }}" alt="Logo {{ $transaction->currency->name }}" class="mr-3">{{ $transaction->currency->name }}</td>
                                     <td>{{ $transaction->currency->api_id }}</td>
                                     <td>{{ $transaction->quantity }}</td>
-                                    <td>{{ $transaction->purchase_price }} {{ config('currency')['symbol'] }}</td>
-                                    <td>{{ $transaction->amount }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->purchase_price) }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->amount) }} {{ config('currency')['symbol'] }}</td>
                                     <td>{{ $transaction->purchase_date }}</td>
-                                    <td>{{ $transaction->selling_price }} {{ config('currency')['symbol'] }}</td>
-                                    <td>{{ $transaction->selling_amount }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->selling_price) }} {{ config('currency')['symbol'] }}</td>
+                                    <td>{{ str_replace('.', ',', $transaction->selling_amount) }} {{ config('currency')['symbol'] }}</td>
                                     @if ($transaction->selling_amount - $transaction->amount >= 0)
                                         <td class="text-success">
-                                            {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                            {{ str_replace('.', ',', $transaction->selling_amount - $transaction->amount) }} {{ config('currency')['symbol'] }}
                                         </td>
                                     @else
                                         <td class="text-danger">
-                                            {{ $transaction->selling_amount - $transaction->amount }} {{ config('currency')['symbol'] }}
+                                            {{ str_replace('.', ',', $transaction->selling_amount - $transaction->amount) }} {{ config('currency')['symbol'] }}
                                         </td>
                                     @endif
                                     <td>{{ $transaction->selling_date }}</td>
