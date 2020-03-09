@@ -29,7 +29,7 @@ class CalculateBalance
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->status == 'admin') {
+        if (Auth::user()->status == 'client') {
             $api = new API;
 
             $currencies = Auth::user()
