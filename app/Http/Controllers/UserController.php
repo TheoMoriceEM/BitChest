@@ -152,9 +152,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Transaction::where('user_id', $user->id)->delete(); // Delete user's transactions
-
-        $user->delete(); // Delete user
+        $user->delete();
 
         return redirect()
             ->route('users.index')

@@ -14,6 +14,7 @@ class CreateCurrenciesTable extends Migration
     public function up()
     {
         Schema::create('currencies', function (Blueprint $table) {
+            $table->engine = 'InnoDB'; // Necessary for cascade deleting
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->string('logo', 100)->nullable();
